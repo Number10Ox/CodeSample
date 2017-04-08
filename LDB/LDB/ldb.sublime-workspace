@@ -1,0 +1,985 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"user",
+				"user1"
+			],
+			[
+				"neigh",
+				"neighborHashKey"
+			],
+			[
+				"m_v",
+				"m_searchVisitedList"
+			],
+			[
+				"nei",
+				"neighborRecord"
+			],
+			[
+				"User",
+				"UserMeetsSearchCriteria"
+			],
+			[
+				"tar",
+				"targetedNearbyGender"
+			],
+			[
+				"qu",
+				"queryParameters"
+			],
+			[
+				"Exe",
+				"ExecuteCommandLineQuery"
+			],
+			[
+				"kIn",
+				"kInvalidString"
+			],
+			[
+				"m_",
+				"m_xLoc"
+			],
+			[
+				"RTreeOb",
+				"RTreeObjectIdType_t"
+			],
+			[
+				"mPlayer",
+				"mPlayerCurrentGold"
+			],
+			[
+				"goods",
+				"goodsIndex"
+			],
+			[
+				"getPr",
+				"getProgressMax"
+			],
+			[
+				"post",
+				"postSqDistToTarget"
+			],
+			[
+				"nonS",
+				"nonShipCubeIndex"
+			],
+			[
+				"Queue",
+				"QueuePacketForSend"
+			],
+			[
+				"setTarget",
+				"setPositionAndTargetToDefault"
+			],
+			[
+				"kCube",
+				"kCubeType_Whirlpool"
+			],
+			[
+				"LOG",
+				"LOG_FLOAT2"
+			],
+			[
+				"mLi",
+				"mLightningState"
+			],
+			[
+				"Klightning",
+				"kLightningTravelOutwardMs"
+			],
+			[
+				"kLightningEnt",
+				"kLightningTravelEnteringMs"
+			],
+			[
+				"mL",
+				"mLightningMinYPanning"
+			],
+			[
+				"kL",
+				"kLightningLingerMs"
+			],
+			[
+				"on",
+				"onBluetoothConnect"
+			],
+			[
+				"blue",
+				"onBluetoothConnect"
+			],
+			[
+				"P",
+				"PIRATES_BLUETOOTH_UNIT_TEST"
+			],
+			[
+				"B",
+				"BluetoothPipe"
+			],
+			[
+				"Blue",
+				"BluetoothPacket"
+			],
+			[
+				"Bluetooth",
+				"BluetoothPacket"
+			],
+			[
+				"kMessage_R",
+				"kMessage_RoundInfo_2"
+			],
+			[
+				"Pirate",
+				"PiratesBluetoothUnitTest"
+			],
+			[
+				"mRe",
+				"mReceivePackets"
+			],
+			[
+				"wr",
+				"writeAvailable"
+			],
+			[
+				"hi",
+				"hiLoDifference"
+			],
+			[
+				"mP",
+				"mPacketIdCounter"
+			],
+			[
+				"Blu",
+				"BluetoothPacket"
+			],
+			[
+				"k",
+				"kPacketCapacity"
+			],
+			[
+				"PiratesBlue",
+				"PiratesBluetoothUnitTest"
+			],
+			[
+				"mPl",
+				"mPlayerPirateIndex"
+			],
+			[
+				"mLight",
+				"mLightningFrame"
+			],
+			[
+				"mW",
+				"mWindTimeRemaining"
+			],
+			[
+				"m",
+				"mWindTimeRemaining"
+			],
+			[
+				"gBlue",
+				"gBluetoothUnitTestEventValue"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "README.txt",
+			"settings":
+			{
+				"buffer_size": 3667,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				":w",
+				":w - Save"
+			],
+			[
+				"pack",
+				"Package Control: List Packages"
+			],
+			[
+				"indent",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"in",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"rein",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"",
+				"Preferences: Key Bindings - Default"
+			],
+			[
+				":",
+				"CTags: Rebuild Tags"
+			],
+			[
+				":q",
+				"Set Syntax: SQL"
+			],
+			[
+				":n",
+				"File: New View into File"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": true,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": true
+	},
+	"file_history":
+	[
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/LDBDatabase.h",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/LDBTypes.h",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/LDBHashManager.cpp",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/LDBRTree.cpp",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/main.cpp",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/LDBRTree.h",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/LDBQueryTargetedLikes.cpp",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/LDBQueryTargetedLikes.h",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/LDBQueryNearbyGender.h",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/LDBQueryNearbyGender.cpp",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/LDBQuery.h",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/LDBHashManager.h",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/LDBDatabase.cpp",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/LDBQuery.cpp",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/LDBUtil.h",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/testdata/users_nearby_test.csv",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/testdata/likes_nearby_test.csv",
+		"/Users/jonedwards/Desktop/Work Docs/UD/AGT/Code/goFramework/GoIterators.h",
+		"/Users/jonedwards/Desktop/Work Docs/UD/AGT/Code/goFramework/GoObjectManager.h",
+		"/Users/jonedwards/Desktop/Work Docs/UD/AGT/Code/goFramework/GoIterators.cpp",
+		"/Users/jonedwards/Desktop/Work Docs/UD/AGT/Code/goFramework/GoComponentFactory.h",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/README.txt",
+		"/Users/jonedwards/Desktop/Work Docs/UD/AGT/Code/goFramework/GoComponentFactory.cpp",
+		"/Users/jonedwards/Desktop/Work Docs/UD/AGT/Code/HashCalc/HashCalc.cpp",
+		"/Users/jonedwards/Dropbox/Work/Luminosity Code Test/LDBDatabase.cpp",
+		"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/c++/v1/iterator",
+		"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/c++/v1/iosfwd",
+		"/Users/jonedwards/Desktop/Work Docs/Code/PirateSource/ScriptEngine.cpp",
+		"/Users/jonedwards/Desktop/Work Docs/Code/PirateSource/Lexer.cpp",
+		"/Users/jonedwards/Desktop/Work Docs/UD/ZAxis/Xmen/Tools/Max5/ZPlugins/Plugins/CustomPlugins/ZgeExp/DoExport.cpp",
+		"/Users/jonedwards/Dropbox/Mac Transfer/Previous Jobs/Other Work Folder/UD/COD5 Storge/HashStuff/stringUtils/agtStringUtils.cpp",
+		"/Users/jonedwards/Dropbox/Mac Transfer/Previous Jobs/Archive/ZAxis/Xmen/Tools/Max5/ZPlugins/Plugins/CustomPlugins/ZgeExp/CZUtil.cpp",
+		"/Users/jonedwards/Dropbox/Mac Transfer/Previous Jobs/Other Work Folder/UD/COD5 Storge/HashStuff/stringUtils/agtStringTok.cpp",
+		"/Users/jonedwards/Dropbox/Mac Transfer/Previous Jobs/Other Work Folder/UD/CODAA/Preproduction/Collada/LibXML/parser.c",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/ldb.sublime-project",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/LDBUtil.cpp",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/QueryTargetedLikes.h",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/QueryTargetedLikes.cpp",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/QueryNearbyGender.cpp",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/QueryNearbyGender.h",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/QueryTargetLikes.h",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/RTree.h",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/ldb.sublime-workspace",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/RTree.cpp",
+		"/Users/jonedwards/Dropbox/Mac Transfer/Previous Jobs/Archive/ZAxis/RTreeVisualizer/RTree.cpp",
+		"/Users/jonedwards/Desktop/Work Docs/UD/AGT/Code/goFramework/GoBlueprintDatabase.h",
+		"/Users/jonedwards/Desktop/Work Docs/UD/AGT/Code/goFramework/GoComponent.h",
+		"/Users/jonedwards/Dropbox/Mac Transfer/Previous Jobs/Archive/ZAxis/RTreeVisualizer/RTree.h",
+		"/Users/jonedwards/Dropbox/Mac Transfer/Previous Jobs/Archive/ZAxis/RTreeVisualizer/Util.h",
+		"/Users/jonedwards/Desktop/Work Docs/Code/GameEngine/EntityManager.cpp",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/likes.csv",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/debug.log",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/users.csv",
+		"/Users/jonedwards/Desktop/Work Docs/Code/GameEngine/EntityManager.h",
+		"/Users/jonedwards/Downloads/MurmurHash2_64.cpp",
+		"/Users/jonedwards/sifteo/include/sifteo/abi/types.h",
+		"/Users/jonedwards/Downloads/MurmurHash2.cpp",
+		"/Users/jonedwards/Dropbox/Mac Transfer/sifteo_100/include/sifteo/macros.h",
+		"/Users/jonedwards/Dropbox/Mac Transfer/sifteo_100/include/sifteo/menu/types.h",
+		"/Users/jonedwards/Dropbox/Mac Transfer/sifteo_100/include/sifteo/abi/syscall.h",
+		"/Users/jonedwards/Dropbox/Mac Transfer/boats/pirate_select_menu/types.h",
+		"/Users/jonedwards/Dropbox/Mac Transfer/Previous Jobs/Other Work Folder/UD/Personal/Historical/AXVI/AApplication.h",
+		"/Users/jonedwards/Dropbox/Mac Transfer/boats/event_handlers.cpp",
+		"/Users/jonedwards/Dropbox/Mac Transfer/boats/cube_index.cpp",
+		"/Users/jonedwards/Dropbox/Mac Transfer/boats/animation_timings.gen.cpp",
+		"/Users/jonedwards/Luminosity Code Test/LDBDatabase.cpp",
+		"/Users/jonedwards/Luminosity Code Test/LDBUtil.h",
+		"/Users/jonedwards/Luminosity Code Test/Luminosity Code Test/Query.h",
+		"/Users/jonedwards/Downloads/CCRC32/CCRC32.H",
+		"/Users/jonedwards/Downloads/CCRC32/CCRC32.Cpp",
+		"/Users/jonedwards/Desktop/Luminosity Code Test/Luminosity Code Test/main.cpp",
+		"/Users/jonedwards/Desktop/Luminosity Code Test/Luminosity Code Test/users.csv",
+		"/Users/jonedwards/Desktop/Luminosity Code Test/Luminosity Code Test/likes.csv",
+		"/Users/jonedwards/Dropbox/Resume/LinkedIn/LinkIn Profile Summary.TXT",
+		"/Users/jonedwards/Dropbox/Resume/LinkedIn/Linked In Profile Rework.txt",
+		"/Users/jonedwards/Dropbox/Resume/LinkedIn/Lessons-Learned.TXT",
+		"/Users/jonedwards/Dropbox/Resume/LinkIn Profile Summary.TXT",
+		"/Users/jonedwards/Dropbox/Resume/LinkedInProfileNotes.txt",
+		"/Users/jonedwards/Dropbox/RPG/Reference - Theory/Drama.txt",
+		"/Users/jonedwards/Dropbox/Resume/Linked In Profile Rework.txt",
+		"/Users/jonedwards/Dropbox/Private Share/TrafficAI/AIDistributeGoal.py",
+		"/Users/jonedwards/Dropbox/Private Share/TrafficAI/AIDrugLord.py",
+		"/Users/jonedwards/Dropbox/Private Share/goFramework/GoObjectManager.h",
+		"/Users/jonedwards/Dropbox/Private Share/goFramework/GoDataClassProperties.h",
+		"/Users/jonedwards/Dropbox/Private Share/goFramework/GoBlueprint.cpp",
+		"/Users/jonedwards/Dropbox/Private Share/goFramework/GoDataClassProperties.cpp",
+		"/Users/jonedwards/Dropbox/Private Share/goFramework/GoComponentFactory.h",
+		"/Users/jonedwards/Dropbox/Private Share/goFramework/GoBlueprintDatabase.cpp",
+		"/Users/jonedwards/Dropbox/Private Share/TrafficAI/AIAgent.py",
+		"/Users/jonedwards/Dropbox/Private Share/TrafficAI/AIFixGoal.py",
+		"/Users/jonedwards/Dropbox/Private Share/TrafficAI/AISmuggleGoal.py",
+		"/Users/jonedwards/Dropbox/Private Share/TrafficAI/AIProcureGoal.py",
+		"/Users/jonedwards/Desktop/Work Docs/RTree.cpp",
+		"/Users/jonedwards/Dropbox/Private Share/RTreeVisualizer/VisualizerCanvas.cpp",
+		"/Users/jonedwards/Dropbox/Private Share/RTreeVisualizer/VisualizerApp.cpp",
+		"/Users/jonedwards/Desktop/Work Docs/Code/TrafficDocs/TrafficGameDoc.txt",
+		"/Users/jonedwards/Desktop/Work Docs/Code/TrafficDocs/Scripting Reference Guide.txt",
+		"/Users/jonedwards/Desktop/Work Docs/Code/TrafficDocs/Data Authoring Tool Chain.txt",
+		"/Users/jonedwards/Dropbox/Private Share/goFramework/GoPropertyMarkup.h",
+		"/Users/jonedwards/Dropbox/Private Share/goFramework/GoIterators.h",
+		"/Users/jonedwards/Dropbox/Private Share/goFramework/GoObjectManager.cpp",
+		"/Users/jonedwards/Dropbox/Private Share/goFramework/GoComponentManager.h",
+		"/Users/jonedwards/Dropbox/Private Share/goFramework/GoBlueprintDatabase.h",
+		"/Users/jonedwards/Dropbox/Work/Archive/Code/agtLevelEditor/source/LevelEditorApp.cpp",
+		"/Users/jonedwards/Desktop/Work Docs/Code/TrafficAI/AIAgent.py",
+		"/Users/jonedwards/boats/weather.cpp",
+		"/Users/jonedwards/boats/pirates_bluetooth.cpp",
+		"/Users/jonedwards/Dropbox/Work/Archive/Code/goFramework/GoObjectManager.cpp",
+		"/Users/jonedwards/boats/pirates_bluetooth_message.h",
+		"/Users/jonedwards/boats/pirates_state.cpp",
+		"/Users/jonedwards/Dropbox/Work/Archive/Code/goFramework/GoComponentManager.h",
+		"/Users/jonedwards/Dropbox/Work/Archive/Code/NodeEditor/src/nodeeditorframe.h",
+		"/Users/jonedwards/Dropbox/Work/Archive/Code/NodeEditor/sampleData/aiSave02.lay",
+		"/Users/jonedwards/Dropbox/Work/Archive/Code/NodeEditor/src/wxnodeeditor.cpp",
+		"/Users/jonedwards/Dropbox/Work/Archive/Code/NodeEditor/aiscriptDataSchema.schema",
+		"/Users/jonedwards/Desktop/Pen Drive Backup/Pen Drive Backup 2/Archive/ZAxis/RTreeVisualizer/VisualizerFrame.cpp",
+		"/Users/jonedwards/Desktop/Pen Drive Backup/Pen Drive Backup 2/Archive/ZAxis/RTreeVisualizer/VisualizerCanvas.cpp",
+		"/Users/jonedwards/Desktop/Pen Drive Backup/Pen Drive Backup 2/Archive/ZAxis/RTreeVisualizer/VisualizerApp.cpp",
+		"/Users/jonedwards/Desktop/Pen Drive Backup/Pen Drive Backup 2/Archive/ZAxis/RTreeVisualizer/RTree.h",
+		"/Users/jonedwards/Desktop/Pen Drive Backup/Pen Drive Backup 2/Archive/ZAxis/RTreeVisualizer/RTree.cpp",
+		"/Users/jonedwards/Desktop/Work Docs/Code/TrafficAI/AISmuggleGoal.py",
+		"/Users/jonedwards/Desktop/Work Docs/Code/TrafficAI/AIProcureGoal.py",
+		"/Users/jonedwards/Desktop/Work Docs/Code/TrafficAI/AILaunderGoal.py",
+		"/Users/jonedwards/Desktop/Work Docs/Code/TrafficAI/AIFixGoal.py",
+		"/Users/jonedwards/Desktop/Work Docs/Code/TrafficAI/AIDrugLord.py",
+		"/Users/jonedwards/Desktop/Work Docs/Code/TrafficAI/AIDistributeGoal.py",
+		"/Users/jonedwards/Desktop/Work Docs/Code/Messaging/MessageDispatcher.h",
+		"/Users/jonedwards/Desktop/Work Docs/Code/GameEngine/DistributedObjectManager.h"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"",
+			"<open folders>",
+			"<open files>",
+			"<open folders>,<open files>",
+			"<open folders>"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"stl",
+			"stor",
+			"std::",
+			"std",
+			"std::",
+			"LDBHashManager",
+			"LDBRTree",
+			"std::",
+			"using namespace",
+			"LDBQueryTargetedLikes",
+			"LDBQueryNearbyGender",
+			"LDBDatabase",
+			"LDBUserRecord",
+			"std::",
+			"string",
+			"Default",
+			"Range",
+			"xLoc",
+			"		",
+			"/",
+			"m_gender",
+			"queryParameters",
+			"::ma",
+			"map",
+			"::map",
+			"GetLocCo",
+			"LocCoordn",
+			"LocCoord",
+			"LogError",
+			"%u",
+			"ull",
+			"range",
+			"DEBUG",
+			"/DEBUG",
+			"line read",
+			"DEBUG",
+			"TOKEN_LIST_ITR",
+			"std:vector",
+			"std::vector",
+			"std:evctor",
+			"tokenItr",
+			"itr",
+			"RTree",
+			"testStrings",
+			"std::string",
+			"quote",
+			"token",
+			"::LookupHashS",
+			"LookupHash",
+			"LookupHashString",
+			"\"invalid string",
+			"longNumber",
+			"LogUserR",
+			"kInvalidHashValue",
+			"kInvalidHash",
+			"kInvalidHashValue",
+			"key",
+			"		LDBLogError(\"Error: Cannot add new user '%s', already exists.\\n\", newRecord.userName.c_str());",
+			"push",
+			"push_back",
+			"Contains",
+			"contains",
+			"Contain",
+			"Contains",
+			"AddNewUserRecord",
+			"UpdateRecord",
+			"AfterUpdate",
+			"TRangeQuery",
+			"Uint32",
+			"RTreeRTree",
+			"_t_t",
+			"IDTYPE",
+			"RTreeIdType",
+			"IDTYPE",
+			"uint32",
+			"id",
+			"template",
+			"AddNewUserR",
+			"AddUser",
+			"AddUserRe",
+			"kNull",
+			"HashKey",
+			"float",
+			"floatFl",
+			"flat",
+			"Check",
+			"CheckCon",
+			"/CheckCon",
+			"QUERY_INTERSECTS",
+			"QUERY_CONTAINS",
+			"Allocate",
+			"TRUE",
+			"PATH_B",
+			"Branchlist",
+			"RTREE_ACTIVE_BRANCH_LIST_SIZE",
+			"Bool",
+			"/BoundingBox",
+			"TRUE",
+			"FALSE",
+			"BBoxIntersectsBBox",
+			"Contains",
+			"BBoxContainsBBox",
+			"Bool",
+			"zutil",
+			"CZF",
+			"Z3DVector",
+			"ZFloat",
+			"HashString",
+			"strtol",
+			"Z3DVector",
+			"ZBoundBox",
+			"Vector",
+			"HashString",
+			"TrimString",
+			"\\t",
+			"string",
+			"ASSERT",
+			"Add",
+			"find",
+			"_t",
+			"32_t",
+			"long",
+			"unsigned",
+			"un",
+			"uint64_t",
+			"parseResult",
+			"LOG",
+			"line read"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"",
+			"HashManager",
+			"RTree",
+			"",
+			"QueryTargetedLikes",
+			"QueryNearbyGender",
+			"Database",
+			"UserRecord",
+			"",
+			"TOKENS_ITR",
+			"std::vector",
+			"tokensItr",
+			"string",
+			"kInvalidHashKey",
+			"RTree",
+			"_t",
+			"RTreeIdType_t",
+			"kQueryType_Intersects",
+			"kQueryType_Contains",
+			"true",
+			"bool",
+			"true",
+			"false",
+			"bool",
+			"LDBUtil::",
+			"LDBVector",
+			"Float",
+			"LDBVector",
+			"LDBBoundBox",
+			"\nunsigned long long",
+			"\n",
+			"kWeatherActivation",
+			"ActivationState",
+			"Stormcloud",
+			"SpritesState::setAge",
+			"SpritesState::getAge",
+			"isEffectInProgress"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "README.txt",
+					"settings":
+					{
+						"buffer_size": 3667,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 100.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"Strong technical background and a passion for game"
+			],
+			[
+				"pirates",
+				"boats/pirates_bluetooth.h"
+			],
+			[
+				"mes",
+				"boats/pirates_bluetooth_message.h"
+			],
+			[
+				"blue",
+				"boats/pirates_bluetooth.cpp"
+			],
+			[
+				"mess",
+				"sifteo/menu/states.h"
+			],
+			[
+				"const",
+				"boats/constants.h"
+			],
+			[
+				"irate",
+				"boats/pirates_bluetooth_message.h"
+			],
+			[
+				"even",
+				"boats/event_handlers.cpp"
+			],
+			[
+				"goodc",
+				"boats/goods_state.cpp"
+			],
+			[
+				"para",
+				"boats/locations/paradise.cpp"
+			],
+			[
+				"sprite",
+				"boats/sprites_state.cpp"
+			],
+			[
+				"pi",
+				"boats/pirates_bluetooth.h"
+			],
+			[
+				"con",
+				"boats/constants.h"
+			],
+			[
+				"me",
+				"boats/pirates_bluetooth_message.h"
+			],
+			[
+				"pir",
+				"boats/pirates_bluetooth.cpp"
+			],
+			[
+				"good",
+				"boats/goods_state.cpp"
+			],
+			[
+				"vol",
+				"boats/locations/volcano.cpp"
+			],
+			[
+				"sp",
+				"boats/sprites_state.h"
+			],
+			[
+				"spri",
+				"boats/sprites_state.h"
+			],
+			[
+				"p",
+				"boats/locations/paradise.cpp"
+			],
+			[
+				"cons",
+				"boats/constants.h"
+			],
+			[
+				"update",
+				"boats/update_cube_functions.cpp"
+			],
+			[
+				"light",
+				"boats/locations/lighthouse.cpp"
+			],
+			[
+				"parai",
+				"boats/locations/paradise.cpp"
+			],
+			[
+				"pirate",
+				"boats/pirates_bluetooth.cpp"
+			],
+			[
+				"sprite_",
+				"boats/sprites_state.h"
+			],
+			[
+				"message",
+				"boats/pirates_bluetooth_message.h"
+			],
+			[
+				"plu",
+				"boats/pirates_bluetooth.cpp"
+			],
+			[
+				"round",
+				"boats/round_state.h"
+			],
+			[
+				"camp",
+				"boats/locations/camp.cpp"
+			],
+			[
+				"game",
+				"boats/game_state.cpp"
+			],
+			[
+				"blub",
+				"boats/pirate_select_menu/public.h"
+			],
+			[
+				"weather",
+				"boats/weather.h"
+			],
+			[
+				"wea",
+				"boats/weather.cpp"
+			],
+			[
+				"cont",
+				"boats/constants.h"
+			],
+			[
+				"weath",
+				"boats/weather.cpp"
+			],
+			[
+				"we",
+				"boats/weather.cpp"
+			],
+			[
+				"goods",
+				"boats/goods_state.cpp"
+			],
+			[
+				"weat",
+				"boats/weather.cpp"
+			],
+			[
+				"game_",
+				"boats/game_state_functions.cpp"
+			],
+			[
+				"events",
+				"boats/event_handlers.cpp"
+			],
+			[
+				"blu",
+				"sifteo/bluetooth.h"
+			],
+			[
+				"test",
+				"boats/pirates_bluetooth_test.h"
+			],
+			[
+				"loader",
+				"boats/loader.cpp"
+			],
+			[
+				"help",
+				"boats/helper_functions.cpp"
+			],
+			[
+				"bl",
+				"boats/pirates_bluetooth.cpp"
+			],
+			[
+				"weater",
+				"boats/weather.cpp"
+			],
+			[
+				"save",
+				"boats/saved_data.h"
+			],
+			[
+				"main",
+				"boats/main.cpp"
+			],
+			[
+				"ro",
+				"boats/round_state.h"
+			],
+			[
+				"k",
+				"boats/locations/kraken.cpp"
+			],
+			[
+				"kra",
+				"boats/locations/kraken.cpp"
+			],
+			[
+				"kr",
+				"boats/locations/kraken.cpp"
+			],
+			[
+				"event",
+				"boats/event_handlers.h"
+			],
+			[
+				"bay.",
+				"boats/locations/bay.cpp"
+			],
+			[
+				"ligh",
+				"boats/locations/lighthouse.cpp"
+			],
+			[
+				"lua",
+				"boats/pirates_bluetooth_message.h"
+			],
+			[
+				"im",
+				"sifteo/asset/image.h"
+			],
+			[
+				"update_",
+				"boats/update_cube_functions.cpp"
+			],
+			[
+				"command",
+				"boats/bluetooth_test.command"
+			],
+			[
+				"bay",
+				"boats/locations/bay.cpp"
+			],
+			[
+				"glo",
+				"boats/globals.h"
+			],
+			[
+				"makefile",
+				"boats/Makefile"
+			],
+			[
+				"glob",
+				"boats/globals.h"
+			],
+			[
+				"unit",
+				"boats/bluetooth_unit.command"
+			],
+			[
+				"helper",
+				"boats/helper_functions.cpp"
+			],
+			[
+				"cube",
+				"boats/update_cube_functions.cpp"
+			],
+			[
+				"motion",
+				"sifteo/motion.h"
+			],
+			[
+				"array",
+				"sifteo/array.h"
+			],
+			[
+				"rounds",
+				"boats/round_state.h"
+			],
+			[
+				"subli",
+				"boats/boats.sublime-project"
+			],
+			[
+				"maefile",
+				"boats/Makefile"
+			],
+			[
+				"b",
+				"boats/bluetooth.h"
+			],
+			[
+				"co",
+				"boats/constants.h"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/Users/jonedwards/boats/boats-backup.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 192.0,
+	"status_bar_visible": true
+}

@@ -1,0 +1,12 @@
+{
+	"folders":
+	[
+		{
+			"path": "/Users/jonedwards/Luminosity Code Test/Luminosity Code Test",
+			"folder_exclude_patterns": ["unit_test_data"],
+			"file_exclude_patterns": ["*.bat", "*.orig", "*.md", "*.orig", "*.xcf", "*.files",
+			"*.includes", "*.gen.*", ".gitignore", "*.creator", "*.user.*", "*.ini", "*.config",
+			"*logs", "help", ".tags", "*.lua", "*.d", "*sublime*", "*.command", "*.png", "*.elf", "likedb*", "*.1"]
+		}
+	]
+}

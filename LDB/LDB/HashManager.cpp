@@ -1,4 +1,4 @@
-//  LDBHashManager.cpp
+//  HashManager.cpp
 //  Jon Edwards Code Sample
 //
 //  Class to store Likes Database data
@@ -7,7 +7,7 @@
 //  Copyright (c) 2017 Jon Edwards. All rights reserved.
 //
 
-#include "LDBHashManager.h"
+#include "HashManager.h"
 
 BEGIN_NAMESPACE(LDB)
 	
@@ -16,18 +16,18 @@ HashManager::~HashManager()
 	// Nothing to do
 }
 
-LDBHashKey HashManager::GenerateHash(const string &str)
+HashKey HashManager::GenerateHash(const string &str)
 {
 	if (str.empty())
 	{
 		return kInvalidHashKey;
 	}
 
-	LDBHashKey key = HashString(str.c_str());
+	HashKey key = HashString(str.c_str());
 	ASSERT(key != kInvalidHashKey, "Valid hash generated same value as kInvalidHashKey");
 	if (key == kInvalidHashKey)
 	{
-		LDBLogError("Error: String '%s' generated invalid hash value\n", str.c_str());
+		LogError("Error: String '%s' generated invalid hash value\n", str.c_str());
 	}
 	else
 	{
@@ -38,7 +38,7 @@ LDBHashKey HashManager::GenerateHash(const string &str)
 			// We've found key in string has table. Make sure we don't have a collision.
 			if (str != registeredString)
 			{
-				LDBLogError("Error: Discovered hash conflict for strings '%s' and '%s'\n",
+				LogError("Error: Discovered hash conflict for strings '%s' and '%s'\n",
 					str.c_str(), registeredString.c_str());
 				key = kInvalidHashKey;
 			}
@@ -53,9 +53,9 @@ LDBHashKey HashManager::GenerateHash(const string &str)
 	return key;
 }
 
-bool HashManager::LookupHashString(LDBHashKey key, string &str)
+bool HashManager::LookupHashString(HashKey key, string &str)
 {
-	unordered_map<LDBHashKey, string>::const_iterator itr;
+	unordered_map<HashKey, string>::const_iterator itr;
 	itr = m_stringHashTable.find(key);
 	if (itr == m_stringHashTable.end())
 	{
@@ -69,12 +69,12 @@ bool HashManager::LookupHashString(LDBHashKey key, string &str)
 }
 
 //---------------------------------------------------------------------------
-// LDBHashString
+// HashString
 //
 // Uses 64-CRC Murmur public domain hash algorithm taken from
 // https://sites.google.com/site/murmurhash/
 //---------------------------------------------------------------------------
-LDBHashKey HashManager::HashString(const char *str, uint32_t seed /* = 0 */)
+HashKey HashManager::HashString(const char *str, uint32_t seed /* = 0 */)
 {
 	const uint64_t m = 0xc6a4a7935bd1e995;
 	const int r = 47;

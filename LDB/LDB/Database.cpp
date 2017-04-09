@@ -1,4 +1,4 @@
-//  LDBDatabase.cpp
+//  Database.cpp
 //  Jon Edwards Code Sample
 //
 //  Class to store data for Likes Database application. Stores
@@ -8,9 +8,9 @@
 //  Copyright (c) 2017 Jon Edwards. All rights reserved.
 //
 
-#include "LDBUtil.h"
-#include "LDBHashManager.h"
-#include "LDBDatabase.h"
+#include "Util.h"
+#include "HashManager.h"
+#include "Database.h"
 
 #include <iostream>
 #include <string>
@@ -21,22 +21,12 @@ BEGIN_NAMESPACE(LDB)
 // Types of elements stored in the database (currently only user records)
 enum RTreeElementTypes
 {
-	LDBElemType_Invalid = 0,
-	LDBElemType_UserRecord = 1
+	ElemType_Invalid = 0,
+	ElemType_UserRecord = 1
 };
 
 // sNullUserRecord : Instance to represent a "null" user record
 const UserRecord sNullUserRecord;
-
-Database::Database()
-{
-	m_initialized = false;
-
-	// Initialize R-tree extents to the full from of LDBLocCoord values
-	LDBLocCoord locCoordMin = numeric_limits<LDBLocCoord>::min();
-	LDBLocCoord locCoordMax = numeric_limits<LDBLocCoord>::max();
-	m_rTree.Initialize((float)locCoordMin, (float)locCoordMax);
-}
 
 Database::~Database()
 {
@@ -48,6 +38,12 @@ Database::~Database()
 //----------------------------------------------------------------------------
 void Database::Initialize()
 {
+    
+    // Initialize R-tree extents to the full from of LocCoord values
+    LocCoord locCoordMin = numeric_limits<LocCoord>::min();
+    LocCoord locCoordMax = numeric_limits<LocCoord>::max();
+    m_rTree.Initialize((float)locCoordMin, (float)locCoordMax);
+    
 	m_initialized = true;
 }
 
@@ -67,7 +63,7 @@ void Database::Shutdown()
 //----------------------------------------------------------------------------
 const UserRecord &Database::LookupUserRecordByName(const string &userName)
 {
-	LDBHashKey key = m_hashManager.GenerateHash(userName);
+	HashKey key = m_hashManager->GenerateHash(userName);
 	return LookupUserRecordByKey(key);
 }
 
@@ -76,7 +72,7 @@ const UserRecord &Database::LookupUserRecordByName(const string &userName)
 // should be a hash of the user name hash. Returns pointer to user record if
 // found, otherwise NULL.
 //----------------------------------------------------------------------------
-const UserRecord &Database::LookupUserRecordByKey(LDBHashKey key)
+const UserRecord &Database::LookupUserRecordByKey(HashKey key)
 {
 	ASSERT(key != kInvalidHashKey, "Invalid hash key encountered");
 	if (key == kInvalidHashKey)
@@ -103,14 +99,14 @@ void Database::AddNewUserRecord(UserRecord &record)
 	m_userRecords[record.userNameHash] = record;
 
 	// Add to Rtree	
-	LDBBoundBox bbox;
+	BoundBox bbox;
 	bbox.min.x = record.xLoc;
 	bbox.min.y = record.yLoc;
 	bbox.min.z = 0.0f;
 	bbox.max.x = record.xLoc;
 	bbox.max.y = record.yLoc;
 	bbox.max.z = 0.0f;
-	m_rTree.Insert(bbox, LDBElemType_UserRecord, record.userNameHash);
+	m_rTree.Insert(bbox, ElemType_UserRecord, record.userNameHash);
 }
 
 //----------------------------------------------------------------------------
@@ -139,10 +135,10 @@ bool Database::IsNullUserRecord(const UserRecord &record)
 	return record == sNullUserRecord;
 }
 
-int32_t Database::QueryUsersInRange(LDBLocCoord x, LDBLocCoord y, Uint32 range, vector<LDBHashKey> &userList)
+uint32_t Database::QueryUsersInRange(LocCoord x, LocCoord y, uint32_t range, vector<HashKey> &userList)
 {
 	// Find candidates in bounding box encompassing the point and radius
-	LDBBoundBox bbox;
+	BoundBox bbox;
 	bbox.min.x = (float)x - (float)range;
 	bbox.min.y = (float)y - (float)range;
 	bbox.min.z = 0.0f;
@@ -150,13 +146,13 @@ int32_t Database::QueryUsersInRange(LDBLocCoord x, LDBLocCoord y, Uint32 range, 
 	bbox.max.y = (float)y + (float)range;
 	bbox.max.z = 0.0f;
 
-	vector<LDBHashKey> candidateUsers;
+	vector<HashKey> candidateUsers;
     vector<RTreeObjectCategoryType_t> categories;
-	Uint32 count = m_rTree.IntersectsQuery(bbox, categories, candidateUsers);
+	uint32_t count = m_rTree.IntersectsQuery(bbox, categories, candidateUsers);
 
 	// Find candidates actually within range distance
-	Uint32 rangeSquared = range * range;
-    Uint32 inRangeCount = 0;
+	uint32_t rangeSquared = range * range;
+    uint32_t inRangeCount = 0;
 	for (int i = 0; i < count; i++)
 	{
 		const UserRecord &candidate = LookupUserRecordByKey(candidateUsers[i]);
@@ -187,14 +183,14 @@ bool Database::LoadUserDataFromCSVFile(const char *fileName)
 {
 	if (!m_initialized)
 	{
-		LDBLogError("Error: Database::LoadUserDataFromCSVFile -  database not initialized\n");
+		LogError("Error: Database::LoadUserDataFromCSVFile -  database not initialized\n");
 		return false;
 	}
 
 	FILE *file = fopen(fileName, "r");
 	if (file == NULL)
 	{
-		LDBLogError("Error: Database::LoadUserDataFromCSVFile -  could not open file '%s'\n", fileName);
+		LogError("Error: Database::LoadUserDataFromCSVFile -  could not open file '%s'\n", fileName);
 		return false;
 	}
 
@@ -220,14 +216,14 @@ bool Database::LoadLikesDataFromCSVFile(const char *fileName)
 {
 	if (!m_initialized)
 	{
-		LDBLogError("Error: Database::LoadLikeDataFromCSVFile -  database not initialized\n");
+		LogError("Error: Database::LoadLikeDataFromCSVFile -  database not initialized\n");
 		return false;
 	}
 
 	FILE *file = fopen(fileName, "r");
 	if (file == NULL)
 	{
-		LDBLogError("Error: Database::LoadLikeDataFromCSVFile -  could not open file '%s'\n", fileName);
+		LogError("Error: Database::LoadLikeDataFromCSVFile -  could not open file '%s'\n", fileName);
 		return false;
 	}
 
@@ -258,25 +254,25 @@ bool Database::LoadLikesDataFromCSVFile(const char *fileName)
 	{ \
 		if (TOKENS_ITR == TOKEN_LIST.end()) \
 		{ \
-			LDBLogError("Error reading data file '%s' (line: %d) could not find expected string variable '%s' in input line '%s'\n", \
+			LogError("Error reading data file '%s' (line: %d) could not find expected string variable '%s' in input line '%s'\n", \
 				FILENAME, LINENUM, VARIABLENAME, INPUTLINE); \
 			return;	\
 		} \
-		VARIABLE = m_hashManager.GenerateHash(*TOKENS_ITR); \
+		VARIABLE = m_hashManager->GenerateHash(*TOKENS_ITR); \
 	}
 
 #define PARSE_COORD_TOKEN(TOKEN_LIST, TOKENS_ITR, VARIABLE, VARIABLENAME, FILENAME, LINENUM, INPUTLINE) \
 	{ \
 		if (TOKENS_ITR == TOKEN_LIST.end()) \
 		{ \
-			LDBLogError("Error reading data file '%s' (line: %d) could not find expected integer variable '%s' in input line '%s'\n", \
+			LogError("Error reading data file '%s' (line: %d) could not find expected integer variable '%s' in input line '%s'\n", \
 				FILENAME, LINENUM, VARIABLENAME, INPUTLINE); \
 			return;	\
 		} \
-		bool result = LDBUtil::GetLocCoordFromString(*TOKENS_ITR, VARIABLE); \
+		bool result = Util::GetLocCoordFromString(*TOKENS_ITR, VARIABLE); \
 		if (!result) \
 		{ \
-			LDBLogError("Error reading data file '%s' (line: %d): found a value for variable <%s> that was not valid integer in input line '%s'\n", \
+			LogError("Error reading data file '%s' (line: %d): found a value for variable <%s> that was not valid integer in input line '%s'\n", \
 				FILENAME, LINENUM, VARIABLENAME, INPUTLINE); \
 			return; \
 		} \
@@ -284,12 +280,12 @@ bool Database::LoadLikesDataFromCSVFile(const char *fileName)
 
 void Database::ProcessUserDataRecordCSV(const char *fileName, uint32_t lineNum, const char *str)
 {
-	//* DEBUG */ LDBLogMessage("ProcessUserDataRecordCSV: line read '%s'\n", str);
+	//* DEBUG */ LogMessage("ProcessUserDataRecordCSV: line read '%s'\n", str);
 
 	string inputLine(str);
 	vector<string> tokens;
 
-    LDBUtil::TokenizeString(inputLine, tokens, " ,\t\n", "");
+    Util::TokenizeString(inputLine, tokens, " ,\t\n", "");
 
 	// Blank line - return
 	if (tokens.size() == 0)
@@ -308,7 +304,7 @@ void Database::ProcessUserDataRecordCSV(const char *fileName, uint32_t lineNum, 
     const UserRecord &existingRecord = LookupUserRecordByKey(newRecord.userNameHash);
     if (!IsNullUserRecord(existingRecord))
 	{
-		LDBLogError("Error: Cannot add new user '%s', already exists.\n", (*tokensItr).c_str());
+		LogError("Error: Cannot add new user '%s', already exists.\n", (*tokensItr).c_str());
 		return;
     }
 	tokensItr++;
@@ -337,12 +333,12 @@ void Database::ProcessUserDataRecordCSV(const char *fileName, uint32_t lineNum, 
 //----------------------------------------------------------------------------
 void Database::ProcessLikesDataRecordCSV(const char *fileName, uint32_t lineNum, const char *str)
 {
-	//* DEBUG */ LDBLogMessage("LoadLikesDataFromCSVFile: line read '%s'\n", str);
+	//* DEBUG */ LogMessage("LoadLikesDataFromCSVFile: line read '%s'\n", str);
 
 	string inputLine(str);
 	vector<string> tokens;
 
-	LDBUtil::TokenizeString(inputLine, tokens, " ,\t\n", "");
+	Util::TokenizeString(inputLine, tokens, " ,\t\n", "");
     
 	// Blank line - return
 	if (tokens.size() == 0)
@@ -353,7 +349,7 @@ void Database::ProcessLikesDataRecordCSV(const char *fileName, uint32_t lineNum,
 	vector<string>::const_iterator tokensItr = tokens.begin();
 
 	// Read user name 
-	LDBHashKey userNameHash; 
+	HashKey userNameHash; 
 	PARSE_STRING_TOKEN(tokens, tokensItr, userNameHash, "<user name>", fileName, lineNum, inputLine.c_str());
 
 	// Make sure user is registered in system
@@ -363,12 +359,12 @@ void Database::ProcessLikesDataRecordCSV(const char *fileName, uint32_t lineNum,
 	const UserRecord &existingRecord = LookupUserRecordByName(userName);
     if (IsNullUserRecord(existingRecord))
 	{
-		LDBLogError("Error reading file '%s' (line: %d) : Cannot find user '%s' in database. Skipping input line: '%s'\n",
+		LogError("Error reading file '%s' (line: %d) : Cannot find user '%s' in database. Skipping input line: '%s'\n",
 			fileName, lineNum, userName.c_str(), inputLine.c_str());
 		return;
     }
 
-    LDBHashKey userLikeHash;
+    HashKey userLikeHash;
 	PARSE_STRING_TOKEN(tokens, tokensItr, userLikeHash, "<user like>", fileName, lineNum, inputLine.c_str());
 	if (userLikeHash != kInvalidHashKey)
 	{
@@ -390,7 +386,7 @@ void Database::ProcessLikesDataRecordCSV(const char *fileName, uint32_t lineNum,
 //----------------------------------------------------------------------------
 void Database::LogUserRecord(const UserRecord &record)
 {
-	LDBLogMessage("User record:\n");
+	LogMessage("User record:\n");
 	bool found = false;
 	string userName;
 	string phoneNumber;
@@ -403,25 +399,25 @@ void Database::LogUserRecord(const UserRecord &record)
 	found = LookupHashString(record.genderHash, gender);
  	ASSERT(found, "Gender string not found in HashManager");
 
-	LDBLogMessage("\tkey='%llu', userName='%s', phoneNumber='%s', xLoc='%d', yLoc='%d', gender='%s'\n",
+	LogMessage("\tkey='%llu', userName='%s', phoneNumber='%s', xLoc='%d', yLoc='%d', gender='%s'\n",
 		record.userNameHash, userName.c_str(), phoneNumber.c_str(), record.xLoc, record.yLoc, gender.c_str());
 
 	UserRecord::UserLikeList::const_iterator itr = record.userLikes.begin();
 	if (itr != record.userLikes.end())
 	{
-		LDBLogMessage("\tLikes: ");
+		LogMessage("\tLikes: ");
 		for (int i = 0; i < record.userLikes.size(); i++)
 		{
 			string like;
 			found = LookupHashString(record.userLikes[i], like);
 			ASSERT(found, "Like string not found in HashManager");
-			LDBLogMessage("%s ", like.c_str());
+			LogMessage("%s ", like.c_str());
 		}
-		LDBLogMessage("\n");
+		LogMessage("\n");
 	}
 	else
 	{
-		LDBLogMessage("\t[No Likes]\n");
+		LogMessage("\t[No Likes]\n");
 	}
 }
 
@@ -469,12 +465,12 @@ Database::UserRecordIterator::operator++(int)
 	return retVal;
 }
 
-LDBHashKey Database::UserRecordIterator::GetHashKey() const
+HashKey Database::UserRecordIterator::GetHashKey() const
 {
 	if (IsDone())
 		return kInvalidHashKey;
 
-	LDBHashKey hashKey = (*m_itr).first;
+	HashKey hashKey = (*m_itr).first;
 	return hashKey;
 }
 

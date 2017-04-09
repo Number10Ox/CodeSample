@@ -1,5 +1,5 @@
 //
-//  LDBTypes.h
+//  Types.h
 //  Jon Edwards Code Sample
 //
 //  Like Database utility declarations and functions 
@@ -8,26 +8,26 @@
 //  Copyright (c) 2017 Jon Edwards. All rights reserved.
 //
 
-#ifndef LDBTYPES_H
-#define LDBTYPES_H
+#ifndef LDB_TYPES_H
+#define LDB_TYPES_H
 
 namespace LDB 
 {
-	typedef int32_t LDBLocCoord;
-	typedef int64_t LDBHashKey;
+	typedef int32_t LocCoord;
+	typedef uint64_t HashKey;
 
-	struct LDBVector
+	struct Vector
 	{
 		float x;
 		float y;
 		float z;
 	};
 
-	struct LDBBoundBox
+	struct BoundBox
 	{
-		LDBVector min;
-		LDBVector max;
+		Vector min;
+		Vector max;
 	};
 }
 
-#endif // LDBTYPES_H
+#endif // LDB_TYPES_H

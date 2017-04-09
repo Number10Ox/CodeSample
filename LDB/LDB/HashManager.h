@@ -1,5 +1,5 @@
 //
-//  LDBHashManager.h
+//  HashManager.h
 //  Jon Edwards Code Sample
 //
 //  Class manage string hashes for Database
@@ -8,42 +8,40 @@
 //  Copyright (c) 2017 Jon Edwards. All rights reserved.
 //
 
-#ifndef HASHMANAGER_H
-#define HASHMANAGER_H
+#ifndef LDB_HASHMANAGER_H
+#define LDB_HASHMANAGER_H
 
 #include <map>
 #include <unordered_map>
 
 #include "fruit/fruit.h"
-#include "LDBHashManagerInterface.h"
-#include "LDBUtil.h"
+#include "HashManagerInterface.h"
+#include "Util.h"
 
 using namespace std;
 
 BEGIN_NAMESPACE(LDB)
 
 //----------------------------------------------------------------------------
-// LDBHashManger class : Manages string hashes for Database. Used for
+// HashManger class : Manages string hashes for Database. Used for
 // tracking string hashes. Can look up string for hash and detect hash
 // collisions.
-//
-// TODO: Can templatize to take size hash algorithm as parameter
 //----------------------------------------------------------------------------
-class HashManager : public LDBHashManagerInterface
+class HashManager : public HashManagerInterface
 {
 public:
 	INJECT(HashManager()) = default;
 	~HashManager();
 
-	LDBHashKey GenerateHash(const std::string &str);
-	bool LookupHashString(LDBHashKey key, string &str);
+	HashKey GenerateHash(const std::string &str);
+	bool LookupHashString(HashKey key, string &str);
 
 private:
-	LDBHashKey HashString(const char *str, uint32_t seed = 0);
+	HashKey HashString(const char *str, uint32_t seed = 0);
 
-	unordered_map<LDBHashKey, string> m_stringHashTable;
+	unordered_map<HashKey, string> m_stringHashTable;
 };
 
 END_NAMESPACE(LDB)
 
-#endif // HASHMANAGER_H
+#endif // LDB_HASHMANAGER_H

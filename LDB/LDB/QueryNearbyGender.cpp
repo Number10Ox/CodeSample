@@ -1,5 +1,5 @@
 //
-//  LDBQueryNearbyGender.cpp
+//  QueryNearbyGender.cpp
 //  Jon Edwards Code Sample
 //
 //  Created by Jon Edwards on 12/6/13.
@@ -8,7 +8,7 @@
 
 #include <math.h>
 
-#include "LDBQueryNearbyGender.h"
+#include "QueryNearbyGender.h"
 
 BEGIN_NAMESPACE(LDB)
 
@@ -30,9 +30,9 @@ bool QueryNearbyGender::Construct(const string &queryParameters)
 
 	vector<string> tokens;
 	vector<string>::const_iterator tokensItr;
-    LDBUtil::TokenizeString(queryParameters, tokens, " =\t\n", "=");
+    Util::TokenizeString(queryParameters, tokens, " =\t\n", "=");
 
-	int32_tdistance;
+	int32_t distance;
 	string gender;
     
     tokensItr = tokens.begin();
@@ -42,7 +42,7 @@ bool QueryNearbyGender::Construct(const string &queryParameters)
 		if (token == "distance")
 		{
 			tokensItr++;
-		 	bool result = LDBQueryUtil::ParseQuerySint32Parameter(distance,
+		 	bool result = QueryUtil::ParseQuerySint32Parameter(distance,
 		 		tokens, tokensItr, s_queryName, "distance");
 			if (!result)
 			{
@@ -52,7 +52,7 @@ bool QueryNearbyGender::Construct(const string &queryParameters)
 		else if (token == "gender")
 		{
 			tokensItr++;
-			bool result = LDBQueryUtil::ParseQueryStringParameter(gender, tokens,
+			bool result = QueryUtil::ParseQueryStringParameter(gender, tokens,
 		 		tokensItr, s_queryName, "gender");
 			if (!result)
 			{
@@ -61,7 +61,7 @@ bool QueryNearbyGender::Construct(const string &queryParameters)
 		}
 		else
 		{
-			LDBLogError("Error: Unrecognized query parameter found: '%s'\n", token.c_str());
+			LogError("Error: Unrecognized query parameter found: '%s'\n", token.c_str());
 			return false;
 		}
 	} 
@@ -130,7 +130,7 @@ bool QueryNearbyGender::Execute(Database &database)
 	// Iterate through all user records in the database
 	for (Database::UserRecordIterator itr(database); !itr.IsDone(); ++itr)
 	{
-		LDBHashKey candidateHashKey = itr.GetHashKey();
+		HashKey candidateHashKey = itr.GetHashKey();
 
 		// Check that meets criteria
 		bool meetsCriteria = UserMeetsSearchCriteria(database, candidateHashKey);	
@@ -139,7 +139,7 @@ bool QueryNearbyGender::Execute(Database &database)
 			continue;	
 		}
 		// Check to make sure this isn't a user we've visited before in the search
-		unordered_set<LDBHashKey>::iterator visitedItr;
+		unordered_set<HashKey>::iterator visitedItr;
 		visitedItr = m_searchVisitedList.find(candidateHashKey);
 		if (visitedItr != m_searchVisitedList.end())
 		{
@@ -162,14 +162,14 @@ bool QueryNearbyGender::Execute(Database &database)
     return true;
 }
 
-void QueryNearbyGender::ProcessDFSUserSearch(Database &database, LDBHashKey rootCandidateHashKey)
+void QueryNearbyGender::ProcessDFSUserSearch(Database &database, HashKey rootCandidateHashKey)
 {
 	// Push candidate onto top of stack
 	m_dfsSearchStack.push(rootCandidateHashKey);
 
 	while (!m_dfsSearchStack.empty())
 	{
-		LDBHashKey candidateHashKey = m_dfsSearchStack.top();		
+		HashKey candidateHashKey = m_dfsSearchStack.top();		
 		m_dfsSearchStack.pop();
 
 		// Mark as visited
@@ -177,7 +177,7 @@ void QueryNearbyGender::ProcessDFSUserSearch(Database &database, LDBHashKey root
 
 		// Find all neighbors in range
 		const UserRecord &candidateRecord = database.LookupUserRecordByKey(candidateHashKey);
-		vector<LDBHashKey> candidateNeighbors;
+		vector<HashKey> candidateNeighbors;
 	    int count = database.QueryUsersInRange(candidateRecord.xLoc, candidateRecord.yLoc,
 	    	m_distance, candidateNeighbors);
 
@@ -185,8 +185,8 @@ void QueryNearbyGender::ProcessDFSUserSearch(Database &database, LDBHashKey root
 	    // match the criteria and if they do add them to the DFS search stack
 	   	for (int i = 0; i < count; i++)
 	   	{
-	   		LDBHashKey neighborHashKey = candidateNeighbors[i];
-	   		unordered_set<LDBHashKey>::const_iterator itr = m_searchVisitedList.find(neighborHashKey);
+	   		HashKey neighborHashKey = candidateNeighbors[i];
+	   		unordered_set<HashKey>::const_iterator itr = m_searchVisitedList.find(neighborHashKey);
 	   		if (itr == m_searchVisitedList.end())
 	   		{
 				const UserRecord &neighborRecord = database.LookupUserRecordByKey(neighborHashKey);
@@ -214,7 +214,7 @@ void QueryNearbyGender::AddResult(const UserRecord &userRecord1, const UserRecor
 	result.user1 = userRecord1.userNameHash;
 	result.user2 = userRecord2.userNameHash;
 
-	Uint32 distSquared = ((userRecord1.xLoc - userRecord2.xLoc) * (userRecord1.xLoc - userRecord2.xLoc))
+	uint32_t distSquared = ((userRecord1.xLoc - userRecord2.xLoc) * (userRecord1.xLoc - userRecord2.xLoc))
 			+ ((userRecord1.yLoc - userRecord2.yLoc) * (userRecord1.yLoc - userRecord2.yLoc));
 	result.distance = sqrt(distSquared);
 
@@ -228,7 +228,7 @@ void QueryNearbyGender::AddResult(const UserRecord &userRecord1, const UserRecor
 // specific to checking gender).
 //----------------------------------------------------------------------------
 bool QueryNearbyGender::UserMeetsSearchCriteria(Database &database,
-	LDBHashKey userHashKey)
+	HashKey userHashKey)
 {
 	const UserRecord &userRecord = database.LookupUserRecordByKey(userHashKey);
 	return UserMeetsSearchCriteria(database, userRecord);
@@ -270,17 +270,17 @@ bool QueryNearbyGender::WriteResultsToFile(Database &database, FILE *file)
 		bool result = database.LookupHashString(userRecord1.userNameHash, user1Name);
 		if (!result)
 		{
-			LDBLogError("INTERNAL ERROR: Name string not found in HashManager\n");	
+			LogError("INTERNAL ERROR: Name string not found in HashManager\n");	
 		}
 
 		string user2Name;
 		result = database.LookupHashString(userRecord2.userNameHash, user2Name);
 		if (!result)
 		{
-			LDBLogError("INTERNAL ERROR: Name string not found in HashManager\n");	
+			LogError("INTERNAL ERROR: Name string not found in HashManager\n");	
 		}
 
-		LDBLogMessage("%s, %s, %f\n", user1Name.c_str(), user2Name.c_str(), searchResult.distance);
+		LogMessage("%s, %s, %f\n", user1Name.c_str(), user2Name.c_str(), searchResult.distance);
 	}
     
     return true;

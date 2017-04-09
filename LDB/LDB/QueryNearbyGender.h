@@ -1,5 +1,5 @@
 //
-//  LDBQueryNearbyGender.h
+//  QueryNearbyGender.h
 //  Jon Edwards Code Sample
 //
 //  Created by Jon Edwards on 12/6/13.
@@ -18,26 +18,26 @@
 //
 // TODO Perhap an algorithm like Tarjan's algorithm would be a better solution
 
-#ifndef QUERYNEARBYGENDER_H
-#define QUERYNEARBYGENDER_H
+#ifndef LDB_QUERYNEARBYGENDER_H
+#define LDB_QUERYNEARBYGENDER_H
 
 #include <unordered_set>
 #include <stack>
 
-#include "LDBDatabase.h"
-#include "LDBQuery.h"
+#include "Database.h"
+#include "Query.h"
 
 using namespace std;
 
 BEGIN_NAMESPACE(LDB)
 
-class QueryNearbyGender : public LDBQuery
+class QueryNearbyGender : public Query
 {
 public:
 	struct NearbyGenderResult
 	{
-		LDBHashKey 	user1;
-		LDBHashKey 	user2;
+		HashKey 	user1;
+		HashKey 	user2;
 		float		distance;
 	};
 
@@ -55,22 +55,22 @@ public:
 	static const string &GetQueryName() { return s_queryName; }
 
 private:
-	bool UserMeetsSearchCriteria(Database &database, LDBHashKey userHashKey);
+	bool UserMeetsSearchCriteria(Database &database, HashKey userHashKey);
 	bool UserMeetsSearchCriteria(Database &database, const UserRecord &userRecord);
-	void ProcessDFSUserSearch(Database &database, LDBHashKey userHashKey);
+	void ProcessDFSUserSearch(Database &database, HashKey userHashKey);
 	void AddResult(const UserRecord &userRecord1, const UserRecord &userRecord2);
 
 	static const string s_queryName;
 	uint32_t m_distance;
 	string m_gender;
-	LDBHashKey m_genderHash;
+	HashKey m_genderHash;
 
-	unordered_set<LDBHashKey> m_searchVisitedList;
-	stack<LDBHashKey> m_dfsSearchStack;
+	unordered_set<HashKey> m_searchVisitedList;
+	stack<HashKey> m_dfsSearchStack;
 
 	vector<NearbyGenderResult> m_results;
 };
 
 END_NAMESPACE(LDB)
 
-#endif // QUERYNEARBYGENDER_H
+#endif // LDB_QUERYNEARBYGENDER_H

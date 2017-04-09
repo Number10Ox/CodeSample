@@ -18,12 +18,12 @@
 		2B1CED751E98672B0099A83E /* semistatic_graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B1CED6B1E98672B0099A83E /* semistatic_graph.cpp */; };
 		2B1CED761E98672B0099A83E /* semistatic_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B1CED6C1E98672B0099A83E /* semistatic_map.cpp */; };
 		2B7ECC831E956A4100E79A89 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B7ECC821E956A4100E79A89 /* main.cpp */; };
-		2B7ECC971E956B7200E79A89 /* LDBDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B7ECC891E956B7200E79A89 /* LDBDatabase.cpp */; };
-		2B7ECC981E956B7200E79A89 /* LDBHashManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B7ECC8B1E956B7200E79A89 /* LDBHashManager.cpp */; };
-		2B7ECC991E956B7200E79A89 /* LDBQuery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B7ECC8D1E956B7200E79A89 /* LDBQuery.cpp */; };
-		2B7ECC9A1E956B7200E79A89 /* LDBQueryNearbyGender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B7ECC8F1E956B7200E79A89 /* LDBQueryNearbyGender.cpp */; };
-		2B7ECC9B1E956B7200E79A89 /* LDBQueryTargetedLikes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B7ECC911E956B7200E79A89 /* LDBQueryTargetedLikes.cpp */; };
-		2B7ECC9C1E956B7200E79A89 /* LDBRTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B7ECC931E956B7200E79A89 /* LDBRTree.cpp */; };
+		2B7ECC971E956B7200E79A89 /* Database.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B7ECC891E956B7200E79A89 /* Database.cpp */; };
+		2B7ECC981E956B7200E79A89 /* HashManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B7ECC8B1E956B7200E79A89 /* HashManager.cpp */; };
+		2B7ECC991E956B7200E79A89 /* Query.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B7ECC8D1E956B7200E79A89 /* Query.cpp */; };
+		2B7ECC9A1E956B7200E79A89 /* QueryNearbyGender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B7ECC8F1E956B7200E79A89 /* QueryNearbyGender.cpp */; };
+		2B7ECC9B1E956B7200E79A89 /* QueryTargetedLikes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B7ECC911E956B7200E79A89 /* QueryTargetedLikes.cpp */; };
+		2B7ECC9C1E956B7200E79A89 /* RTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B7ECC931E956B7200E79A89 /* RTree.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,24 +59,23 @@
 		2B1CED6B1E98672B0099A83E /* semistatic_graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = semistatic_graph.cpp; path = fruit/src/semistatic_graph.cpp; sourceTree = "<group>"; };
 		2B1CED6C1E98672B0099A83E /* semistatic_map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = semistatic_map.cpp; path = fruit/src/semistatic_map.cpp; sourceTree = "<group>"; };
 		2B1CED771E98691C0099A83E /* configuration */ = {isa = PBXFileReference; lastKnownFileType = folder; name = configuration; path = fruit/configuration; sourceTree = "<group>"; };
-		2B1CED781E986A480099A83E /* LDBHashManagerInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBHashManagerInterface.h; sourceTree = "<group>"; };
-		2B1CED7A1E9997A30099A83E /* LDBDatabaseInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBDatabaseInterface.h; sourceTree = "<group>"; };
+		2B4A5B501E99CCDF00D778A4 /* HashManagerInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashManagerInterface.h; sourceTree = "<group>"; };
 		2B7ECC7F1E956A4100E79A89 /* LDB */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LDB; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B7ECC821E956A4100E79A89 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		2B7ECC891E956B7200E79A89 /* LDBDatabase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LDBDatabase.cpp; sourceTree = "<group>"; };
-		2B7ECC8A1E956B7200E79A89 /* LDBDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBDatabase.h; sourceTree = "<group>"; };
-		2B7ECC8B1E956B7200E79A89 /* LDBHashManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LDBHashManager.cpp; sourceTree = "<group>"; };
-		2B7ECC8C1E956B7200E79A89 /* LDBHashManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBHashManager.h; sourceTree = "<group>"; };
-		2B7ECC8D1E956B7200E79A89 /* LDBQuery.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LDBQuery.cpp; sourceTree = "<group>"; };
-		2B7ECC8E1E956B7200E79A89 /* LDBQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBQuery.h; sourceTree = "<group>"; };
-		2B7ECC8F1E956B7200E79A89 /* LDBQueryNearbyGender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LDBQueryNearbyGender.cpp; sourceTree = "<group>"; };
-		2B7ECC901E956B7200E79A89 /* LDBQueryNearbyGender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBQueryNearbyGender.h; sourceTree = "<group>"; };
-		2B7ECC911E956B7200E79A89 /* LDBQueryTargetedLikes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LDBQueryTargetedLikes.cpp; sourceTree = "<group>"; };
-		2B7ECC921E956B7200E79A89 /* LDBQueryTargetedLikes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBQueryTargetedLikes.h; sourceTree = "<group>"; };
-		2B7ECC931E956B7200E79A89 /* LDBRTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LDBRTree.cpp; sourceTree = "<group>"; };
-		2B7ECC941E956B7200E79A89 /* LDBRTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBRTree.h; sourceTree = "<group>"; };
-		2B7ECC951E956B7200E79A89 /* LDBTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBTypes.h; sourceTree = "<group>"; };
-		2B7ECC961E956B7200E79A89 /* LDBUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDBUtil.h; sourceTree = "<group>"; };
+		2B7ECC891E956B7200E79A89 /* Database.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Database.cpp; sourceTree = "<group>"; };
+		2B7ECC8A1E956B7200E79A89 /* Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
+		2B7ECC8B1E956B7200E79A89 /* HashManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HashManager.cpp; sourceTree = "<group>"; };
+		2B7ECC8C1E956B7200E79A89 /* HashManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashManager.h; sourceTree = "<group>"; };
+		2B7ECC8D1E956B7200E79A89 /* Query.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Query.cpp; sourceTree = "<group>"; };
+		2B7ECC8E1E956B7200E79A89 /* Query.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Query.h; sourceTree = "<group>"; };
+		2B7ECC8F1E956B7200E79A89 /* QueryNearbyGender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QueryNearbyGender.cpp; sourceTree = "<group>"; };
+		2B7ECC901E956B7200E79A89 /* QueryNearbyGender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryNearbyGender.h; sourceTree = "<group>"; };
+		2B7ECC911E956B7200E79A89 /* QueryTargetedLikes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = QueryTargetedLikes.cpp; sourceTree = "<group>"; };
+		2B7ECC921E956B7200E79A89 /* QueryTargetedLikes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryTargetedLikes.h; sourceTree = "<group>"; };
+		2B7ECC931E956B7200E79A89 /* RTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RTree.cpp; sourceTree = "<group>"; };
+		2B7ECC941E956B7200E79A89 /* RTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTree.h; sourceTree = "<group>"; };
+		2B7ECC951E956B7200E79A89 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		2B7ECC961E956B7200E79A89 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,22 +160,21 @@
 		2B7ECC811E956A4100E79A89 /* LDB */ = {
 			isa = PBXGroup;
 			children = (
-				2B1CED7A1E9997A30099A83E /* LDBDatabaseInterface.h */,
-				2B7ECC891E956B7200E79A89 /* LDBDatabase.cpp */,
-				2B7ECC8A1E956B7200E79A89 /* LDBDatabase.h */,
-				2B7ECC8B1E956B7200E79A89 /* LDBHashManager.cpp */,
-				2B7ECC8C1E956B7200E79A89 /* LDBHashManager.h */,
-				2B1CED781E986A480099A83E /* LDBHashManagerInterface.h */,
-				2B7ECC8D1E956B7200E79A89 /* LDBQuery.cpp */,
-				2B7ECC8E1E956B7200E79A89 /* LDBQuery.h */,
-				2B7ECC8F1E956B7200E79A89 /* LDBQueryNearbyGender.cpp */,
-				2B7ECC901E956B7200E79A89 /* LDBQueryNearbyGender.h */,
-				2B7ECC911E956B7200E79A89 /* LDBQueryTargetedLikes.cpp */,
-				2B7ECC921E956B7200E79A89 /* LDBQueryTargetedLikes.h */,
-				2B7ECC931E956B7200E79A89 /* LDBRTree.cpp */,
-				2B7ECC941E956B7200E79A89 /* LDBRTree.h */,
-				2B7ECC951E956B7200E79A89 /* LDBTypes.h */,
-				2B7ECC961E956B7200E79A89 /* LDBUtil.h */,
+				2B7ECC891E956B7200E79A89 /* Database.cpp */,
+				2B7ECC8A1E956B7200E79A89 /* Database.h */,
+				2B7ECC8B1E956B7200E79A89 /* HashManager.cpp */,
+				2B7ECC8C1E956B7200E79A89 /* HashManager.h */,
+				2B4A5B501E99CCDF00D778A4 /* HashManagerInterface.h */,
+				2B7ECC8D1E956B7200E79A89 /* Query.cpp */,
+				2B7ECC8E1E956B7200E79A89 /* Query.h */,
+				2B7ECC8F1E956B7200E79A89 /* QueryNearbyGender.cpp */,
+				2B7ECC901E956B7200E79A89 /* QueryNearbyGender.h */,
+				2B7ECC911E956B7200E79A89 /* QueryTargetedLikes.cpp */,
+				2B7ECC921E956B7200E79A89 /* QueryTargetedLikes.h */,
+				2B7ECC931E956B7200E79A89 /* RTree.cpp */,
+				2B7ECC941E956B7200E79A89 /* RTree.h */,
+				2B7ECC951E956B7200E79A89 /* Types.h */,
+				2B7ECC961E956B7200E79A89 /* Util.h */,
 				2B7ECC821E956A4100E79A89 /* main.cpp */,
 			);
 			path = LDB;
@@ -239,21 +237,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B7ECC981E956B7200E79A89 /* LDBHashManager.cpp in Sources */,
+				2B7ECC981E956B7200E79A89 /* HashManager.cpp in Sources */,
 				2B1CED701E98672B0099A83E /* demangle_type_name.cpp in Sources */,
-				2B7ECC991E956B7200E79A89 /* LDBQuery.cpp in Sources */,
-				2B7ECC9B1E956B7200E79A89 /* LDBQueryTargetedLikes.cpp in Sources */,
+				2B7ECC991E956B7200E79A89 /* Query.cpp in Sources */,
+				2B7ECC9B1E956B7200E79A89 /* QueryTargetedLikes.cpp in Sources */,
 				2B1CED731E98672B0099A83E /* normalized_component_storage_holder.cpp in Sources */,
 				2B1CED6D1E98672B0099A83E /* binding_normalization.cpp in Sources */,
 				2B1CED741E98672B0099A83E /* normalized_component_storage.cpp in Sources */,
 				2B1CED6E1E98672B0099A83E /* component_storage.cpp in Sources */,
 				2B1CED6F1E98672B0099A83E /* component.cpp in Sources */,
 				2B1CED761E98672B0099A83E /* semistatic_map.cpp in Sources */,
-				2B7ECC9C1E956B7200E79A89 /* LDBRTree.cpp in Sources */,
-				2B7ECC9A1E956B7200E79A89 /* LDBQueryNearbyGender.cpp in Sources */,
+				2B7ECC9C1E956B7200E79A89 /* RTree.cpp in Sources */,
+				2B7ECC9A1E956B7200E79A89 /* QueryNearbyGender.cpp in Sources */,
 				2B7ECC831E956A4100E79A89 /* main.cpp in Sources */,
 				2B1CED751E98672B0099A83E /* semistatic_graph.cpp in Sources */,
-				2B7ECC971E956B7200E79A89 /* LDBDatabase.cpp in Sources */,
+				2B7ECC971E956B7200E79A89 /* Database.cpp in Sources */,
 				2B1CED721E98672B0099A83E /* injector_storage.cpp in Sources */,
 				2B1CED711E98672B0099A83E /* fixed_size_allocator.cpp in Sources */,
 			);

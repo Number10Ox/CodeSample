@@ -1,5 +1,5 @@
 //
-//  LDBRTree.h
+//  RTree.h
 //  Jon Edwards Code Sample
 //
 // 	R-Tree implementation for spatial sorting. This implementation is
@@ -29,11 +29,11 @@
 //  Copyright (c) 2013 Jon Edwards. All rights reserved.
 //
 
-#ifndef LDBTREE_H
-#define LDBTREE_H
+#ifndef LDB_RTREE_H
+#define LDB_RTREE_H
 
 #include <vector>
-#include "LDBUtil.h"
+#include "Util.h"
 
 using namespace std;
 
@@ -59,19 +59,19 @@ public:
 	// Insert an element in the Rtree with the specified bounding box, object
 	// category, and object id. Object is expected to be unique for the
 	// specified category.
-	void Insert(const LDBBoundBox &boundingBox, RTreeObjectCategoryType_t category,
+	void Insert(const BoundBox &boundingBox, RTreeObjectCategoryType_t category,
 		RTreeObjectIdType_t id);
 
 	// Generates a list of object ids for elements in Rtree within the specified bounding
 	// box Returns number of elements contained. Categories array specifies the
 	// category of each of the ids.
-	uint32_t IntersectsQuery(LDBBoundBox &boundingBox,
+	uint32_t IntersectsQuery(BoundBox &boundingBox,
 		vector<RTreeObjectCategoryType_t> &objectCategories, vector<RTreeObjectIdType_t> &objectIds);
 
 	//------------------------------------------------------------------------------
 	// Debug routines
 	void CheckConsistency();
-	uint32_t DebugGetNodeData(LDBBoundBox *boundingBoxes, RTreeObjectCategoryType_t *categories,
+	uint32_t DebugGetNodeData(BoundBox *boundingBoxes, RTreeObjectCategoryType_t *categories,
 		RTreeObjectIdType_t *ids, uint32_t *nodeHeights, uint32_t max);
 	
 private:
@@ -80,7 +80,7 @@ private:
 
     struct RTreeNode
 	{
-		LDBBoundBox boundingBox;
+		BoundBox boundingBox;
 		RTreeNode *leftChild;
 		RTreeNode *rightSibling;
 
@@ -100,28 +100,28 @@ private:
 		kQueryType_Intersects
 	};
 
-	RTreeNode *ChooseLeaf(RTreeNode *node, const LDBBoundBox &boundingBox);
-	RTreeNode *FindLeastEnlargement(RTreeNode *node, const LDBBoundBox &boundingBox);
+	RTreeNode *ChooseLeaf(RTreeNode *node, const BoundBox &boundingBox);
+	RTreeNode *FindLeastEnlargement(RTreeNode *node, const BoundBox &boundingBox);
 	void AdjustTree(RTreeNode *node, RTreeNode *child);
 	void AdjustTree(RTreeNode *node, RTreeNode *child, RTreeNode *splitSibling);
 	RTreeNode *SplitNode(RTreeNode *node);
 	void PickSeeds(RTreeNode *parent, RTreeNode **first, RTreeNode **second);
 	RTreeNode *PickNext(RTreeNode *originalParent,
-		LDBBoundBox &group1BoundingBox, LDBBoundBox &group2BoundingBox);
+		BoundBox &group1BoundingBox, BoundBox &group2BoundingBox);
 
-	RTreeNode *FindLeaf(RTreeNode *node, const LDBBoundBox &boundingBox, RTreeObjectCategoryType_t category, RTreeObjectIdType_t id);
+	RTreeNode *FindLeaf(RTreeNode *node, const BoundBox &boundingBox, RTreeObjectCategoryType_t category, RTreeObjectIdType_t id);
 	void CondenseTree(RTreeNode *leaf, RTreeNode *orphans);
 
-	uint32_t RangeQuery(QueryType queryType, LDBBoundBox &boundingBox,
+	uint32_t RangeQuery(QueryType queryType, BoundBox &boundingBox,
                       vector<RTreeObjectCategoryType_t> &categories, vector<RTreeObjectIdType_t> &objectIds);
 
 	RTreeNode *NodeAllocate();
 	void NodeDeallocate(RTreeNode *node);
 	void NodeInitialize(RTreeNode *node);
 
-	RTreeNode *NodeInsertData(RTreeNode *node, const LDBBoundBox &boundingBox, 
+	RTreeNode *NodeInsertData(RTreeNode *node, const BoundBox &boundingBox, 
 		RTreeObjectCategoryType_t catagory, RTreeObjectIdType_t id);
-	bool NodeDeleteData(RTreeNode *node, const LDBBoundBox &boundingBox, 
+	bool NodeDeleteData(RTreeNode *node, const BoundBox &boundingBox, 
 		RTreeObjectCategoryType_t category, RTreeObjectIdType_t id);
 
 	RTreeNode *NodeGetNthChild(RTreeNode *node, uint32_t n);		// Gets child 0,1,2,...
@@ -153,4 +153,4 @@ private:
 
 END_NAMESPACE(LDB)
 
-#endif // LDBTREE_H
+#endif // LDB_RTREE_H

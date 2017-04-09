@@ -1,5 +1,5 @@
 //
-//  LDBUtil.h
+//  Util.h
 //  Jon Edwards Code Sample
 //
 //  Like Database utility declarations and functions 
@@ -8,8 +8,8 @@
 //  Copyright (c) 2017 Jon Edwards. All rights reserved.
 //
 
-#ifndef LDBUTIL_H
-#define LDBUTIL_H
+#ifndef LDB_UTIL_H
+#define LDB_UTIL_H
 
 #include <stdio.h>
 #include <assert.h>
@@ -19,7 +19,7 @@
 #include <limits>
 #include <iostream>
 
-#include "LDBTypes.h"
+#include "Types.h"
 
 using namespace std;
 
@@ -30,8 +30,8 @@ using namespace std;
 #define BEGIN_NAMESPACE(NAMESPACE) namespace NAMESPACE {
 #define END_NAMESPACE(NAMESPACE) }
 
-#define LDBLogError(...) fprintf(stderr, __VA_ARGS__);
-#define LDBLogMessage(...) printf(__VA_ARGS__);
+#define LogError(...) fprintf(stderr, __VA_ARGS__);
+#define LogMessage(...) printf(__VA_ARGS__);
 
 #ifndef ASSERT
 #define ASSERT(CONDITION, MESSAGE) \
@@ -47,10 +47,10 @@ using namespace std;
 #endif
 
 BEGIN_NAMESPACE(LDB)
-BEGIN_NAMESPACE(LDBUtil)
+BEGIN_NAMESPACE(Util)
 
 //----------------------------------------------------------------------------
-// LDBUtil::TrimString : Remove leading and trailing white space from string
+// Util::TrimString : Remove leading and trailing white space from string
 //----------------------------------------------------------------------------
 inline void TrimString(string &str, const string &whitespace)
 {
@@ -170,36 +170,36 @@ inline void TokenizeString(const string str, vector<string> &tokens,
 }
 
 //----------------------------------------------------------------------------
-// LDBUtil::GetPosFromString : Get user position coordinate from string
+// Util::GetPosFromString : Get user position coordinate from string
 // representation
 //----------------------------------------------------------------------------
-inline bool GetLocCoordFromString(const string &str, LDBLocCoord &number)
+inline bool GetLocCoordFromString(const string &str, LocCoord &number)
 {
 	char *end;
 	long longNumber = strtol(str.c_str(), &end, 10);
 
-	ASSERT(longNumber <= numeric_limits<LDBLocCoord>::max()
-		&& longNumber >=numeric_limits<LDBLocCoord>::min(),
-		"Read coord out of range of LDBLocCoord type");
+	ASSERT(longNumber <= numeric_limits<LocCoord>::max()
+		&& longNumber >=numeric_limits<LocCoord>::min(),
+		"Read coord out of range of LocCoord type");
 	
-	if (longNumber > numeric_limits<LDBLocCoord>::max()
-		|| longNumber < numeric_limits<LDBLocCoord>::min()
+	if (longNumber > numeric_limits<LocCoord>::max()
+		|| longNumber < numeric_limits<LocCoord>::min()
 		|| end == str || *end != '\0' || errno == ERANGE)
 	{
 		return false;
 	}
 	else
 	{
-		number = (LDBLocCoord)longNumber;
+		number = (LocCoord)longNumber;
 		return true;
 	}
 }
 
 //----------------------------------------------------------------------------
-// LDBUtil::BBBoxMerge : Merges two bounding boxes and stores the result
+// Util::BBBoxMerge : Merges two bounding boxes and stores the result
 // in a destination bounding box. Returns point to destination bounding box.
 //----------------------------------------------------------------------------
-inline LDBBoundBox* BBoxMerge(LDBBoundBox *pDestBBox, const LDBBoundBox *pBBox1, const LDBBoundBox *pBBox2)
+inline BoundBox* BBoxMerge(BoundBox *pDestBBox, const BoundBox *pBBox1, const BoundBox *pBBox2)
 {
 	pDestBBox->min.x = pBBox1->min.x < pBBox2->min.x ? pBBox1->min.x : pBBox2->min.x;
 	pDestBBox->max.x = pBBox1->max.x > pBBox2->max.x ? pBBox1->max.x : pBBox2->max.x;
@@ -214,10 +214,10 @@ inline LDBBoundBox* BBoxMerge(LDBBoundBox *pDestBBox, const LDBBoundBox *pBBox1,
 }
 
 //----------------------------------------------------------------------------
-// LDBUtil::BBoxContainsBBox : Given two bounding boxes, returns whether
+// Util::BBoxContainsBBox : Given two bounding boxes, returns whether
 // the first fits within the second.
 //----------------------------------------------------------------------------
-inline bool BBoxContainsBBox(const LDBBoundBox &pBBox1, const LDBBoundBox &pBBox2)
+inline bool BBoxContainsBBox(const BoundBox &pBBox1, const BoundBox &pBBox2)
 {
 	if ( (pBBox2.min.x >= pBBox1.min.x) && (pBBox2.max.x <= pBBox1.max.x) )
 		if ( (pBBox2.min.y >= pBBox1.min.y) && (pBBox2.max.y <= pBBox1.max.y) )
@@ -227,14 +227,14 @@ inline bool BBoxContainsBBox(const LDBBoundBox &pBBox1, const LDBBoundBox &pBBox
 	return false;
 }
 
-inline bool BBoxIntersectsBBox(const LDBBoundBox &pBBox1, const LDBBoundBox &pBBox2)
+inline bool BBoxIntersectsBBox(const BoundBox &pBBox1, const BoundBox &pBBox2)
 {
 	return !(pBBox1.min.x > pBBox2.max.x || pBBox2.min.x > pBBox1.max.x ||
 		pBBox1.min.y > pBBox2.max.y || pBBox2.min.y > pBBox1.max.y ||
 		pBBox1.min.z > pBBox2.max.z || pBBox2.min.z > pBBox1.max.z);
 }
 
-END_NAMESPACE(LDBUtil)
+END_NAMESPACE(Util)
 END_NAMESPACE(LDB)
 
-#endif // LDBUTIL_H
+#endif // LDB_UTIL_H

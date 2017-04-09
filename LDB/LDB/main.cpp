@@ -10,10 +10,10 @@
 #include <getopt.h>
 #include <string.h>
 
-#include "LDBUtil.h"
-#include "LDBDatabase.h"
-#include "LDBQueryTargetedLikes.h"
-#include "LDBQueryNearbyGender.h"
+#include "Util.h"
+#include "Database.h"
+#include "QueryTargetedLikes.h"
+#include "QueryNearbyGender.h"
 
 using namespace LDB;
 using namespace std;
@@ -23,7 +23,7 @@ static string sLikesDataFileName = "likes.csv";
 
 static void ParseCommandLine(int argc, const char **argv);
 static void ParseCommandLineQuery(int argc, const char **argv);
-static void ExecuteCommandLineQuery(Database &database, LDBQuery &query, const string &queryParameters);
+static void ExecuteCommandLineQuery(Database &database, Query &query, const string &queryParameters);
 static bool LoadDatabase(Database &database, const string &usersDataFileName, const string &likesDataFileName);
 
 static void PrintUsage();
@@ -84,20 +84,29 @@ static void ParseCommandLine(int argc, const char **argv)
 
     if (!queryFound)
     {
-        LDBLogMessage("No query found.\n");
+        LogMessage("No query found.\n");
         PrintUsage();
     }
 }
 
 static void PrintUsage()
 {
-	LDBLogMessage("Usage: likedb [-u users.csv] [-l likes.csv] [-t] [-q query_string][\n");
-    LDBLogMessage("\t-u Load user data CSV file [defaults to 'likes.csv']\n");
-    LDBLogMessage("\t-l Load like data CSV file [defaults to 'likes.csv']\n");
-    LDBLogMessage("\t-t Runs application internal unit test\n");
-    LDBLogMessage("\t-q Executes a database query using args following -q. Query string can be one of:\n");
-	LDBLogMessage("\t\ttarget_likes distance=num x=num y=num like=like_value\n");
-	LDBLogMessage("\t\tnearby_gender distance=num gender=gender_value\n\n");
+	LogMessage("Usage: likedb [-u users.csv] [-l likes.csv] [-t] [-q query_string][\n");
+    LogMessage("\t-u Load user data CSV file [defaults to 'likes.csv']\n");
+    LogMessage("\t-l Load like data CSV file [defaults to 'likes.csv']\n");
+    LogMessage("\t-t Runs application internal unit test\n");
+    LogMessage("\t-q Executes a database query using args following -q. Query string can be one of:\n");
+	LogMessage("\t\ttarget_likes distance=num x=num y=num like=like_value\n");
+	LogMessage("\t\tnearby_gender distance=num gender=gender_value\n\n");
+}
+
+//----------------------------------------------------------------------------
+// getDatabaseComponent: Builds database with hash manger
+//----------------------------------------------------------------------------
+const fruit::Component<Database>& getDatabaseComponent() {
+    static const fruit::Component<Database> databaseComponent = fruit::createComponent()
+    .bind<HashManagerInterface, HashManager>();
+    return databaseComponent;
 }
 
 //----------------------------------------------------------------------------
@@ -109,13 +118,13 @@ static bool LoadDatabase(Database &database, const string &usersDataFileName,
     bool result = database.LoadUserDataFromCSVFile(usersDataFileName.c_str());
     if (!result) 
     {
-        LDBLogMessage("Error: Couldn't find user data file '%s'\n", usersDataFileName.c_str());
+        LogMessage("Error: Couldn't find user data file '%s'\n", usersDataFileName.c_str());
         return false;
     }
     result = database.LoadLikesDataFromCSVFile(likesDataFileName.c_str());
     if (!result) 
     {
-        LDBLogMessage("Error: Couldn't find likes data file '%s'\n", usersDataFileName.c_str());
+        LogMessage("Error: Couldn't find likes data file '%s'\n", usersDataFileName.c_str());
         return false;
     }
 
@@ -136,7 +145,6 @@ static void ParseCommandLineQuery(int argc, const char **argv)
         return;
     }
     
-  
     // Load database
     Injector<Database> injector(getDatabaseComponent());
     Database *database(injector);
@@ -160,16 +168,16 @@ static void ParseCommandLineQuery(int argc, const char **argv)
     if (queryName == QueryTargetedLikes::GetQueryName())
     {
         QueryTargetedLikes targetedLikesQuery;
-        ExecuteCommandLineQuery(database, targetedLikesQuery, queryParameters);
+        ExecuteCommandLineQuery(*database, targetedLikesQuery, queryParameters);
     }
     else if (queryName == QueryNearbyGender::GetQueryName())
     {
         QueryNearbyGender targetedNearbyGender;
-        ExecuteCommandLineQuery(database, targetedNearbyGender, queryParameters);
+        ExecuteCommandLineQuery(*database, targetedNearbyGender, queryParameters);
     }
     else
     {
-        LDBLogMessage("Unknown query type encountered: '%s'\n", queryName.c_str());
+        LogMessage("Unknown query type encountered: '%s'\n", queryName.c_str());
         PrintUsage();
     }
 }
@@ -178,7 +186,7 @@ static void ParseCommandLineQuery(int argc, const char **argv)
 // Execute Query String : Execute a query specified by a string on the
 // command line. 
 //----------------------------------------------------------------------------
-static void ExecuteCommandLineQuery(Database &database, LDBQuery &query,
+static void ExecuteCommandLineQuery(Database &database, Query &query,
     const string &queryParameters)
 {
     // Construct query of type specified, execute it, and write results to
@@ -202,33 +210,34 @@ static bool RunTokenizeUnitTest();
 
 void RunUnitTest()
 {
-    bool result = true;;
+    bool result = true;
 
     result = RunTokenizeUnitTest();
     if (!result) 
     {
-        LDBLogError("---- UNIT TEST FAILED ----\n");
+        LogError("---- UNIT TEST FAILED ----\n");
         return;
     }     
 
-    Database database;
-    database.Initialize();
+    Injector<Database> injector(getDatabaseComponent());
+    Database *database(injector);
+    database->Initialize();
 
-    result = LoadDatabase(database, sUsersDataFileName, sLikesDataFileName);
+    result = LoadDatabase(*database, sUsersDataFileName, sLikesDataFileName);
     if (!result) 
     {
-        LDBLogError("---- UNIT TEST FAILED ----\n");
+        LogError("---- UNIT TEST FAILED ----\n");
         
     } 
 
     QueryTargetedLikes targetedLikesQuery;
     string likesParameters = "distance=100 x=27 y=127 like=pizza";
     result = targetedLikesQuery.Construct(likesParameters);
-    result = targetedLikesQuery.Execute(database);
-    result = targetedLikesQuery.WriteResultsToFile(database, stdout);
+    result = targetedLikesQuery.Execute(*database);
+    result = targetedLikesQuery.WriteResultsToFile(*database, stdout);
     if (!result) 	
     {
-        LDBLogError("---- UNIT TEST FAILED ----\n");
+        LogError("---- UNIT TEST FAILED ----\n");
         return;
     } 
 
@@ -236,18 +245,18 @@ void RunUnitTest()
     string nearbyParameters = "distance=20 gender=male";
     result = targetedNearbyGender.Construct(nearbyParameters);
     //result = targetedNearbyGender.Construct(20, "male");
-    result = targetedNearbyGender.Execute(database);
-    result = targetedNearbyGender.WriteResultsToFile(database, stdout);
+    result = targetedNearbyGender.Execute(*database);
+    result = targetedNearbyGender.WriteResultsToFile(*database, stdout);
     if (!result) 
     {
-        LDBLogError("---- UNIT TEST FAILED ----\n");
+        LogError("---- UNIT TEST FAILED ----\n");
         return;
     } 
 
 
-    database.Shutdown();
+    database->Shutdown();
 
-    LDBLogMessage("---- UNIT TEST PASSED ----\n");
+    LogMessage("---- UNIT TEST PASSED ----\n");
 }
 
 static const char *sTokenizeTestStrings[] =
@@ -271,16 +280,16 @@ static bool RunTokenizeUnitTest()
     string str = sTokenizeTestStrings[count];
     while (!str.empty())
     {
-        LDBUtil::TokenizeString(str, tokenList, " ,=\t\n", "=");
+        Util::TokenizeString(str, tokenList, " ,=\t\n", "=");
 
-        LDBLogMessage("Tokenizing string: '%s'\n", str.c_str());
+        LogMessage("Tokenizing string: '%s'\n", str.c_str());
         for (int i = 0; i < tokenList.size(); i++)
         {
             string token = tokenList[i];
-            LDBLogMessage("\t'%s'\n", token.c_str());
+            LogMessage("\t'%s'\n", token.c_str());
         }
 
-        LDBLogMessage("\n");
+        LogMessage("\n");
         tokenList.clear();
         str = sTokenizeTestStrings[++count];
     }

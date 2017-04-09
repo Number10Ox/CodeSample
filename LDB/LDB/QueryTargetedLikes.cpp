@@ -1,12 +1,12 @@
 //
-//  LDBQueryTargetedLikes.cpp
+//  QueryTargetedLikes.cpp
 //  Jon Edwards Code Sample
 //
 //  Created by Jon Edwards on 12/6/13.
 //  Copyright (c) 2017 Jon Edwards. All rights reserved.
 //
 
-#include "LDBQueryTargetedLikes.h"
+#include "QueryTargetedLikes.h"
 
 BEGIN_NAMESPACE(LDB)
 
@@ -33,10 +33,10 @@ bool QueryTargetedLikes::Construct(const string &queryParameters)
 
 	vector<string> tokens;
 	vector<string>::const_iterator tokensItr;
-    LDBUtil::TokenizeString(queryParameters, tokens, " =\t\n", "=");
+    Util::TokenizeString(queryParameters, tokens, " =\t\n", "=");
 
-	LDBLocCoord xLoc = 0;;
-	LDBLocCoord yLoc = 0;;
+	LocCoord xLoc = 0;;
+	LocCoord yLoc = 0;;
 	int32_t distance = 0;;
 	string like;
 
@@ -47,7 +47,7 @@ bool QueryTargetedLikes::Construct(const string &queryParameters)
 		if (token == "distance")
 		{
 			tokensItr++;
-		 	bool result = LDBQueryUtil::ParseQuerySint32Parameter(distance,
+		 	bool result = QueryUtil::ParseQuerySint32Parameter(distance,
 		 		tokens, tokensItr, s_queryName, "distance");
 			if (!result)
 			{
@@ -57,7 +57,7 @@ bool QueryTargetedLikes::Construct(const string &queryParameters)
 		else if (token == "x")
 		{
 			tokensItr++;
-		 	bool result = LDBQueryUtil::ParseQuerySint32Parameter(xLoc, tokens,
+		 	bool result = QueryUtil::ParseQuerySint32Parameter(xLoc, tokens,
 		 		tokensItr, s_queryName, "x");
 			if (!result)
 			{
@@ -67,7 +67,7 @@ bool QueryTargetedLikes::Construct(const string &queryParameters)
 		else if (token == "y")
 		{
 			tokensItr++;
-			bool result = LDBQueryUtil::ParseQuerySint32Parameter(yLoc, tokens,
+			bool result = QueryUtil::ParseQuerySint32Parameter(yLoc, tokens,
 		 		tokensItr, s_queryName, "y");
 			if (!result)
 			{
@@ -77,7 +77,7 @@ bool QueryTargetedLikes::Construct(const string &queryParameters)
 		else if (token == "like")
 		{
 			tokensItr++;
-			bool result = LDBQueryUtil::ParseQueryStringParameter(like, tokens,
+			bool result = QueryUtil::ParseQueryStringParameter(like, tokens,
 		 		tokensItr, s_queryName, "like");
 			if (!result)
 			{
@@ -86,7 +86,7 @@ bool QueryTargetedLikes::Construct(const string &queryParameters)
 		}
 		else
 		{
-			LDBLogError("Error: Unrecognized query parameter found: '%s'\n", token.c_str());
+			LogError("Error: Unrecognized query parameter found: '%s'\n", token.c_str());
 			return false;
 		}
 	}
@@ -99,7 +99,7 @@ bool QueryTargetedLikes::Construct(const string &queryParameters)
 // QueryTargetedLikes::Construct : Constructs query, filling in parameters
 // so that it may be excuted.
 //----------------------------------------------------------------------------
-bool QueryTargetedLikes::Construct(LDBLocCoord x, LDBLocCoord y, uint32_t distance, const string &like)
+bool QueryTargetedLikes::Construct(LocCoord x, LocCoord y, uint32_t distance, const string &like)
 {
 	m_results.clear();
 
@@ -127,13 +127,13 @@ bool QueryTargetedLikes::Execute(Database &database)
 	}
 
 	// Query all users in range
-	vector<LDBHashKey> userKeys;
+	vector<HashKey> userKeys;
     int count = database.QueryUsersInRange(m_xLoc, m_yLoc, m_distance, userKeys);
     
     // Iterate through users and find those with the like being queried
     if (count > 0)
     {
-    	LDBHashKey desireLikeHash = database.GenerateHash(m_like);
+    	HashKey desireLikeHash = database.GenerateHash(m_like);
 
     	for (int i = 0; i < count; i++)
    		{
@@ -141,14 +141,14 @@ bool QueryTargetedLikes::Execute(Database &database)
         	const UserRecord &userRecord = database.LookupUserRecordByKey(userKeys[i]);
         	for (int likeNum = 0; likeNum < userRecord.userLikes.size(); likeNum++)
         	{
-        		LDBHashKey candidateLikeHash = userRecord.userLikes[likeNum];
+        		HashKey candidateLikeHash = userRecord.userLikes[likeNum];
 
     			/*
     			string desiredLikeString;
     			string candidateLikeString;
 		    	database.LookupHashString(desireLikeHash, desiredLikeString);
 		    	database.LookupHashString(candidateLikeHash, candidateLikeString);
-		    	LDBLogMessage("desireLikeHash string = '%s', candidateLikeHash string = '%s'\n",
+		    	LogMessage("desireLikeHash string = '%s', candidateLikeHash string = '%s'\n",
 		    		desiredLikeString.c_str(), candidateLikeString.c_str());
     			*/
 
@@ -181,12 +181,12 @@ bool QueryTargetedLikes::WriteResultsToFile(Database &database, FILE *file)
 
 	for (int i = 0; i < m_results.size(); i++)
 	{
-		LDBHashKey userNameHash = m_results[i];
+		HashKey userNameHash = m_results[i];
 		const UserRecord& userRecord = database.LookupUserRecordByKey(userNameHash);
 		ASSERT(!database.IsNullUserRecord(userRecord), "Cannot find user referenced in query in the database");
 		if (database.IsNullUserRecord(userRecord))
 		{
-			LDBLogError("Error: Cannot find user referenced in query in the database\n");
+			LogError("Error: Cannot find user referenced in query in the database\n");
 			continue;
 		}
 

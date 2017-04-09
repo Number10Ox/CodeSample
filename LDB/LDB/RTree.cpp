@@ -36,20 +36,20 @@
 #include <math.h>
 #include <stdlib.h>
 
-#include "LDBRTree.h"
+#include "RTree.h"
 
 BEGIN_NAMESPACE(LDB)
 
 namespace RTreeUtil
 {
-	float GetBoundingBoxVolume(const LDBBoundBox &boundingBox)
+	float GetBoundingBoxVolume(const BoundBox &boundingBox)
 	{
 		return (boundingBox.max.x - boundingBox.min.x)
 			* (boundingBox.max.y - boundingBox.min.y)
 			* (boundingBox.max.z - boundingBox.min.z);
 	}
 
-	float GetMinDistanceToBoundingBox(const LDBVector &pos, const LDBBoundBox &boundingBox)
+	float GetMinDistanceToBoundingBox(const Vector &pos, const BoundBox &boundingBox)
 	{
 		float minDist = 0.0f;
 		float r;
@@ -152,14 +152,14 @@ void RTree::Shutdown()
 //
 //-------------------------------------------------------------------------------
 
-uint32_t RTree::IntersectsQuery(LDBBoundBox &boundingBox, 
+uint32_t RTree::IntersectsQuery(BoundBox &boundingBox, 
     vector<RTreeObjectCategoryType_t> &objectCategories,
 	vector<RTreeObjectIdType_t> &objectIds)
 {
 	return RangeQuery(kQueryType_Intersects, boundingBox, objectCategories, objectIds);
 }
 
-uint32_t RTree::RangeQuery(QueryType queryType, LDBBoundBox &boundingBox,
+uint32_t RTree::RangeQuery(QueryType queryType, BoundBox &boundingBox,
 	vector<RTreeObjectCategoryType_t> &objectCategories,
 	vector<RTreeObjectIdType_t> &objectIds)
 {
@@ -189,7 +189,7 @@ uint32_t RTree::RangeQuery(QueryType queryType, LDBBoundBox &boundingBox,
 			RTreeNode *child = top->leftChild;
 			while (child != NULL)
 			{
-				bool inRange = inRange = LDBUtil::BBoxIntersectsBBox(child->boundingBox, boundingBox);
+				bool inRange = inRange = Util::BBoxIntersectsBBox(child->boundingBox, boundingBox);
 				if (inRange)
 				{
 					PathStackPush(child);
@@ -201,7 +201,7 @@ uint32_t RTree::RangeQuery(QueryType queryType, LDBBoundBox &boundingBox,
 		else
 		{
 			// Data nodes
-			bool inRange = LDBUtil::BBoxIntersectsBBox(top->boundingBox, boundingBox);
+			bool inRange = Util::BBoxIntersectsBBox(top->boundingBox, boundingBox);
 			if (inRange)
 			{
 				objectCategories.push_back(top->category);
@@ -237,7 +237,7 @@ void RTree::CheckConsistency()
 			RTreeNode *child = top->leftChild;
 			while (child != NULL)
 			{
-				bool contains =  LDBUtil::BBoxContainsBBox(top->boundingBox,
+				bool contains =  Util::BBoxContainsBBox(top->boundingBox,
 					child->boundingBox);
 				ASSERT(contains, "Consistency check failed");
 
@@ -248,7 +248,7 @@ void RTree::CheckConsistency()
 	}
 }
 
-uint32_t RTree::DebugGetNodeData(LDBBoundBox *boundingBoxes,
+uint32_t RTree::DebugGetNodeData(BoundBox *boundingBoxes,
 	RTreeObjectCategoryType_t *categories, RTreeObjectIdType_t *ids, uint32_t *nodeHeights, uint32_t max)
 {
 	PathStackPopAll();
@@ -309,7 +309,7 @@ uint32_t RTree::DebugGetNodeData(LDBBoundBox *boundingBoxes,
 //
 //-------------------------------------------------------------------------------
 
-void RTree::Insert(const LDBBoundBox &boundingBox, RTreeObjectCategoryType_t category, RTreeObjectIdType_t id)
+void RTree::Insert(const BoundBox &boundingBox, RTreeObjectCategoryType_t category, RTreeObjectIdType_t id)
 {
 	//
 	// TBD Perhaps should do a sanity check ASSERT in case objects are
@@ -341,7 +341,7 @@ void RTree::Insert(const LDBBoundBox &boundingBox, RTreeObjectCategoryType_t cat
 	CheckConsistency();
 }
 
-RTree::RTreeNode *RTree::ChooseLeaf(RTreeNode *node, const LDBBoundBox &boundingBox)
+RTree::RTreeNode *RTree::ChooseLeaf(RTreeNode *node, const BoundBox &boundingBox)
 {
 	// Descend down the tree, picking an index node at each level that
 	// needs to be enlarged the least to incorporate the new bounding
@@ -358,7 +358,7 @@ RTree::RTreeNode *RTree::ChooseLeaf(RTreeNode *node, const LDBBoundBox &bounding
 	return leaf;
 }
 
-RTree::RTreeNode *RTree::FindLeastEnlargement(RTreeNode *node, const LDBBoundBox &boundingBox)
+RTree::RTreeNode *RTree::FindLeastEnlargement(RTreeNode *node, const BoundBox &boundingBox)
 {
 	RTreeNode *bestNode = NULL;
 	float leastEnlargement = m_maxVolume;
@@ -366,9 +366,9 @@ RTree::RTreeNode *RTree::FindLeastEnlargement(RTreeNode *node, const LDBBoundBox
 	RTreeNode *child = node->leftChild;
 	while (child != NULL)
 	{
-		LDBBoundBox enlargedBoundingBox;
-		LDBUtil::BBoxMerge(&enlargedBoundingBox, const_cast<LDBBoundBox *>(&boundingBox),
-			const_cast<LDBBoundBox *>(&child->boundingBox));
+		BoundBox enlargedBoundingBox;
+		Util::BBoxMerge(&enlargedBoundingBox, const_cast<BoundBox *>(&boundingBox),
+			const_cast<BoundBox *>(&child->boundingBox));
 		
 		float childVolume = RTreeUtil::GetBoundingBoxVolume(child->boundingBox);
 		float enlargedVolume = RTreeUtil::GetBoundingBoxVolume(enlargedBoundingBox);
@@ -399,7 +399,7 @@ void RTree::AdjustTree(RTreeNode *node, RTreeNode *child)
 {
 	// If needed, adjust covering rectangle so it tightly encloses all of
 	// its children and continue adjusting up the tree.
-	if (node != NULL && !LDBUtil::BBoxContainsBBox(node->boundingBox, child->boundingBox))
+	if (node != NULL && !Util::BBoxContainsBBox(node->boundingBox, child->boundingBox))
 	{
 		NodeCalculateBoundingBox(node);
 	}
@@ -476,8 +476,8 @@ RTree::RTreeNode *RTree::SplitNode(RTreeNode *node)
 	// Initialize group1 and group 2's bounding box's
 	uint32_t group1Count = 0;
 	uint32_t group2Count = 0;
-	LDBBoundBox group1BoundingBox = group1Head->boundingBox;
-	LDBBoundBox group2BoundingBox = group2Head->boundingBox;
+	BoundBox group1BoundingBox = group1Head->boundingBox;
+	BoundBox group2BoundingBox = group2Head->boundingBox;
 
 	while (node->leftChild != NULL)
 	{
@@ -525,26 +525,26 @@ RTree::RTreeNode *RTree::SplitNode(RTreeNode *node)
 			float volume1 = RTreeUtil::GetBoundingBoxVolume(group1BoundingBox);
 			float volume2 = RTreeUtil::GetBoundingBoxVolume(group2BoundingBox);
 
-			LDBBoundBox merged1;
-			LDBUtil::BBoxMerge(&merged1, &group1BoundingBox, &nextNode->boundingBox);
+			BoundBox merged1;
+			Util::BBoxMerge(&merged1, &group1BoundingBox, &nextNode->boundingBox);
 			float merged1Volume = RTreeUtil::GetBoundingBoxVolume(merged1);
 			float difference1 = merged1Volume - volume1;
 			
-			LDBBoundBox merged2;
-			LDBUtil::BBoxMerge(&merged2, &group2BoundingBox, &nextNode->boundingBox);
+			BoundBox merged2;
+			Util::BBoxMerge(&merged2, &group2BoundingBox, &nextNode->boundingBox);
 			float merged2Volume = RTreeUtil::GetBoundingBoxVolume(merged2);
 			float difference2 =  merged2Volume - volume2;
 
 			if (difference1 < difference2)
 			{
-				LDBUtil::BBoxMerge(&group1BoundingBox, &group1BoundingBox, &nextNode->boundingBox);
+				Util::BBoxMerge(&group1BoundingBox, &group1BoundingBox, &nextNode->boundingBox);
 				nextNode->rightSibling = group1Head;
 				group1Head = nextNode;
 				group1Count++;
 			}
 			else if (difference1 > difference2)
 			{
-				LDBUtil::BBoxMerge(&group2BoundingBox, &group2BoundingBox, &nextNode->boundingBox);
+				Util::BBoxMerge(&group2BoundingBox, &group2BoundingBox, &nextNode->boundingBox);
 				nextNode->rightSibling = group2Head;
 				group2Head = nextNode;
 				group2Count++;
@@ -553,14 +553,14 @@ RTree::RTreeNode *RTree::SplitNode(RTreeNode *node)
 			{
 				if (volume1 <= volume2)
 				{
-					LDBUtil::BBoxMerge(&group1BoundingBox, &group1BoundingBox, &nextNode->boundingBox);
+					Util::BBoxMerge(&group1BoundingBox, &group1BoundingBox, &nextNode->boundingBox);
 					nextNode->rightSibling = group1Head;
 					group1Head = nextNode;
 					group1Count++;
 				}
 				else
 				{
-					LDBUtil::BBoxMerge(&group2BoundingBox, &group2BoundingBox, &nextNode->boundingBox);
+					Util::BBoxMerge(&group2BoundingBox, &group2BoundingBox, &nextNode->boundingBox);
 					nextNode->rightSibling = group2Head;
 					group2Head = nextNode;
 					group2Count++;
@@ -592,8 +592,8 @@ void RTree::PickSeeds(RTreeNode *parent, RTreeNode **first, RTreeNode **second)
 		{
 			RTreeNode *node1 = NodeGetNthChild(parent, i);
 			RTreeNode *node2 = NodeGetNthChild(parent, j);
-			LDBBoundBox merged;
-			LDBUtil::BBoxMerge(&merged, &node1->boundingBox, &node2->boundingBox);
+			BoundBox merged;
+			Util::BBoxMerge(&merged, &node1->boundingBox, &node2->boundingBox);
 			float mergedVolume = RTreeUtil::GetBoundingBoxVolume(merged);
 			float volume1 = RTreeUtil::GetBoundingBoxVolume(node1->boundingBox);
 			float volume2 = RTreeUtil::GetBoundingBoxVolume(node2->boundingBox);
@@ -610,8 +610,8 @@ void RTree::PickSeeds(RTreeNode *parent, RTreeNode **first, RTreeNode **second)
 	ASSERT(((*first != NULL) && (*second != NULL)), "RTree PickSeeds failed");
 }
 
-RTree::RTreeNode *RTree::PickNext(RTreeNode *originalParent, LDBBoundBox &group1BoundingBox,
-	LDBBoundBox &group2BoundingBox)
+RTree::RTreeNode *RTree::PickNext(RTreeNode *originalParent, BoundBox &group1BoundingBox,
+	BoundBox &group2BoundingBox)
 {
 	// Quadratic-Cost Algorithm: Find entry with greatest preference 
 	// for one group
@@ -625,11 +625,11 @@ RTree::RTreeNode *RTree::PickNext(RTreeNode *originalParent, LDBBoundBox &group1
 		float group1Volume = RTreeUtil::GetBoundingBoxVolume(group1BoundingBox);
 		float group2Volume = RTreeUtil::GetBoundingBoxVolume(group2BoundingBox);
 		
-		LDBBoundBox merged1;
-		LDBUtil::BBoxMerge(&merged1, &group1BoundingBox, &child->boundingBox);
+		BoundBox merged1;
+		Util::BBoxMerge(&merged1, &group1BoundingBox, &child->boundingBox);
 		float merged1Volume = RTreeUtil::GetBoundingBoxVolume(merged1);
-		LDBBoundBox merged2;
-		LDBUtil::BBoxMerge(&merged2, &group2BoundingBox, &child->boundingBox);
+		BoundBox merged2;
+		Util::BBoxMerge(&merged2, &group2BoundingBox, &child->boundingBox);
 		float merged2Volume = RTreeUtil::GetBoundingBoxVolume(merged2);
 
 		float group1VolumeIncrease = merged1Volume - group1Volume;
@@ -684,7 +684,7 @@ void RTree::NodeInitialize(RTreeNode *node)
 	node->id = 0;
 }
 
-RTree::RTreeNode *RTree::NodeInsertData(RTreeNode *node, const LDBBoundBox &boundingBox,
+RTree::RTreeNode *RTree::NodeInsertData(RTreeNode *node, const BoundBox &boundingBox,
 	RTreeObjectCategoryType_t category, RTreeObjectIdType_t id)
 {
 	RTreeNode *dataNode = NodeAllocate();
@@ -705,12 +705,12 @@ RTree::RTreeNode *RTree::NodeInsertData(RTreeNode *node, const LDBBoundBox &boun
 	else
 		node->leftChild = dataNode;
 
-	LDBUtil::BBoxMerge(&node->boundingBox, &node->boundingBox, &dataNode->boundingBox);
+	Util::BBoxMerge(&node->boundingBox, &node->boundingBox, &dataNode->boundingBox);
 
 	return dataNode;
 }
 
-bool RTree::NodeDeleteData(RTreeNode *node, const LDBBoundBox &boundingBox,
+bool RTree::NodeDeleteData(RTreeNode *node, const BoundBox &boundingBox,
 	RTreeObjectCategoryType_t category, RTreeObjectIdType_t id)
 {
 	RTreeNode *child = node->leftChild;
@@ -718,7 +718,7 @@ bool RTree::NodeDeleteData(RTreeNode *node, const LDBBoundBox &boundingBox,
 	bool found = false;
 	while (child != NULL && !found)
 	{
-		bool inRange = LDBUtil::BBoxContainsBBox(child->boundingBox, boundingBox);
+		bool inRange = Util::BBoxContainsBBox(child->boundingBox, boundingBox);
 		if (inRange && child->category == category && child->id == id)
 		{
 			if (prevChild == NULL)
@@ -809,7 +809,7 @@ void RTree::NodeCalculateBoundingBox(RTreeNode *node)
 	RTreeNode *n = node->leftChild;
 	while (n != NULL)
 	{
-		LDBUtil::BBoxMerge(&node->boundingBox, &node->boundingBox, &n->boundingBox);
+		Util::BBoxMerge(&node->boundingBox, &node->boundingBox, &n->boundingBox);
 		n = n->rightSibling;
 	}
 }

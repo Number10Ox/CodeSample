@@ -1,16 +1,16 @@
 //
-//  LDBQuery.cpp
+//  Query.cpp
 //  Jon Edwards Code Sample
 //
 //  Created by Jon Edwards on 12/6/13.
 //  Copyright (c) 2017 Jon Edwards. All rights reserved.
 //
 
-#include "LDBQuery.h"
+#include "Query.h"
 
 BEGIN_NAMESPACE(LDB)
 
-namespace LDBQueryUtil
+namespace QueryUtil
 {
  	bool ParseQuerySint32Parameter(int32_t &parameterValue,
 		const vector<string> &tokens, vector<string>::const_iterator &tokensItr,
@@ -18,7 +18,7 @@ namespace LDBQueryUtil
 	{
 		if (tokensItr == tokens.end())
 		{
-			LDBLogError("Error: Missing '=' for '%s' parameter of %s' query'\n",
+			LogError("Error: Missing '=' for '%s' parameter of %s' query'\n",
 				parameterName.c_str(), queryName.c_str());
 			return false;
 		}
@@ -26,7 +26,7 @@ namespace LDBQueryUtil
 		const std::string &assignmentToken = (*tokensItr);
 		if (assignmentToken != "=")
 		{
-			LDBLogError("Error: Missing '=' for '%s' parameter of '%s' query, instead found: '%s'\n", 
+			LogError("Error: Missing '=' for '%s' parameter of '%s' query, instead found: '%s'\n", 
 				parameterName.c_str(), queryName.c_str(), assignmentToken.c_str());
 			return false;
 		}
@@ -34,16 +34,16 @@ namespace LDBQueryUtil
 		tokensItr++;
 		if (tokensItr == tokens.end())
 		{
-			LDBLogError("Error: Missing value for '%s' parameter of '%s' query'\n",
+			LogError("Error: Missing value for '%s' parameter of '%s' query'\n",
 				parameterName.c_str(), queryName.c_str());
 			return false;
 		}
 	
 		const std::string &valueToken = (*tokensItr);
-		bool result = LDBUtil::GetLocCoordFromString(valueToken, parameterValue); \
+		bool result = Util::GetLocCoordFromString(valueToken, parameterValue); \
 		if (!result)
 		{
-			LDBLogError("Error: invalid numerical value '%s' for '%s' parameter of %s' query\n", 
+			LogError("Error: invalid numerical value '%s' for '%s' parameter of %s' query\n", 
 				valueToken.c_str(), parameterName.c_str(), queryName.c_str());
 			return false;
 		}
@@ -59,7 +59,7 @@ namespace LDBQueryUtil
 	{
 		if (tokensItr == tokens.end())
 		{
-			LDBLogError("Error: Missing '=' for '%s' parameter of %s' query'\n",
+			LogError("Error: Missing '=' for '%s' parameter of %s' query'\n",
 				parameterName.c_str(), queryName.c_str());
 			return false;
 		}
@@ -67,7 +67,7 @@ namespace LDBQueryUtil
 		const std::string &assignmentToken = (*tokensItr);
 		if (assignmentToken != "=")
 		{
-			LDBLogError("Error: Missing '=' for '%s' parameter of '%s' query, instead found: '%s'\n", 
+			LogError("Error: Missing '=' for '%s' parameter of '%s' query, instead found: '%s'\n", 
 				parameterName.c_str(), queryName.c_str(), assignmentToken.c_str());
 			return false;
 		}
@@ -75,7 +75,7 @@ namespace LDBQueryUtil
 		tokensItr++;
 		if (tokensItr == tokens.end())
 		{
-			LDBLogError("Error: Missing value for '%s' parameter of '%s' query'\n",
+			LogError("Error: Missing value for '%s' parameter of '%s' query'\n",
 				parameterName.c_str(), queryName.c_str());
 			return false;
 		}

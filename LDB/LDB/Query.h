@@ -1,28 +1,28 @@
 //
-//  LDBQuery.h
+//  Query.h
 //  Jon Edwards Code Sample
 //
 //  Created by Jon Edwards on 12/6/13.
 //  Copyright (c) 2017 Jon Edwards. All rights reserved.
 //
 
-#ifndef LDBQUERY_H
-#define LDBQUERY_H
+#ifndef LDB_QUERY_H
+#define LDB_QUERY_H
 
-#include "LDBDatabase.h"
+#include "Database.h"
 
 using namespace std;
 
 BEGIN_NAMESPACE(LDB)
 
 //----------------------------------------------------------------------------
-// LDBQuery : Abstract base class for LDB database queries
+// Query : Abstract base class for LDB database queries
 //----------------------------------------------------------------------------
-class LDBQuery
+class Query
 {
 public:
-	LDBQuery() : m_isValid(false) { }
-	virtual ~LDBQuery() { }
+	Query() : m_isValid(false) { }
+	virtual ~Query() { }
 
 	// Parses query parameters from a string and constructs query.
 	virtual bool Construct(const std::string &queryParameters) = 0;
@@ -35,7 +35,7 @@ protected:
 	bool m_isValid;
 };
 
-namespace LDBQueryUtil
+namespace QueryUtil
 {
 	using namespace std;
 
@@ -48,4 +48,4 @@ namespace LDBQueryUtil
 
 END_NAMESPACE(LDB)
 
-#endif // LDBQUERY_H
+#endif // LDB_QUERY_H
